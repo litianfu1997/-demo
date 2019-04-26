@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void Login_Fun(View view){
-
+        System.out.println("11111");
         startActivity(new Intent(MainActivity.this,MeunActivity.class));
 
     }
