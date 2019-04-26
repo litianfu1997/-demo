@@ -74,14 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(JSONObject jsonObject) { //将服务器表单提交到
 
                     try {
-                        if(jsonObject.getString("flag").equals("1")){
-                            startActivity(new Intent(MainActivity.this,MeunActivity.class));
-                            Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
-                        }else if (jsonObject.getString("flag").equals("404")){
-                            Toast.makeText(getApplicationContext(),"用户不存在",Toast.LENGTH_LONG).show();
-                        }else if (jsonObject.getString("flag").equals("0")){
-                            Toast.makeText(getApplicationContext(),"密码错误",Toast.LENGTH_LONG).show();
-
+                        if(jsonObject.getString("status").equals("success")){
+                            startActivity(new Intent(MainActivity.this,MeunActivity.class));//登录成功跳转页面
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
+                        }else if (jsonObject.getString("status").equals("error")){
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
                         }
 
                         Log.i(TGA,jsonObject.toString()); //服务器响应后应该返回一个json对象数据
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void Intent_reg(View view){
-        System.out.println("1111111111");
+//        System.out.println("1111111111");
         startActivity(new Intent(MainActivity.this,RegisterActivity.class));
     }
 }
