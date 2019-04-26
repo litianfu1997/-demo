@@ -38,7 +38,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/zhanghu"
+            android:id="@+id/ed_username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="请输入用户名"
@@ -58,7 +58,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/mima"
+            android:id="@+id/ed_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
