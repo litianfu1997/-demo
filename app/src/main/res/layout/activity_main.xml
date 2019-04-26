@@ -6,7 +6,7 @@
     android:layout_margin="20dp"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
-    tools:context=".userfun.MainActivity"
+    tools:context=".mainfile.MainActivity"
     tools:paddingTop="30dp">
 
     <LinearLayout
@@ -67,7 +67,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:orientation="vertical"
         android:paddingTop="30dp">
 
@@ -80,11 +80,32 @@
             />
 
         <Button
-            android:id="@+id/btn_Register"
+            android:id="@+id/btn_Exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="Exit_fun"
+            android:text="退出" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomLinear"
+        android:layout_gravity="bottom">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="Intent_reg"
-            android:text="注册" />
+            android:text="注册账号"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:onClick="Forget_Fun"
+            android:text="忘记密码" />
+
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.nnxy.gjp.userfun;
+package com.nnxy.gjp.mainfile;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

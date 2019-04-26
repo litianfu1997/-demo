@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".userfun.MainActivity">
+        <activity android:name=".mainfile.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userfun.RegisterActivity" />
+        <activity android:name=".mainfile.RegisterActivity" />
         <activity
-            android:name=".userfun.MeunActivity"
+            android:name=".mainfile.MeunActivity"
             android:label="@string/title_activity_meun"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".mainfile.ForgetActivity"></activity>
     </application>
 
 </manifest>

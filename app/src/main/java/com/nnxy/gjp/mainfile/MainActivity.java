@@ -1,4 +1,4 @@
-package com.nnxy.gjp.userfun;
+package com.nnxy.gjp.mainfile;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    /**
+     * 退出
+     * @param view
+     */
+    public void Exit_fun(View view){
+        finish();
+    }
+
+    /**
+     * 忘记密码
+     * @param view
+     */
+    public void Forget_Fun(View view){
+        startActivity(new Intent(MainActivity.this,ForgetActivity.class));
+
     }
 
     /**
