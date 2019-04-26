@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void Intent_reg(View view){
+        System.out.println("1111111111");
         startActivity(new Intent(MainActivity.this,RegisterActivity.class));
     }
 }
