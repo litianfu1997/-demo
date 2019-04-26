@@ -15,7 +15,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * 该按钮实现登录功能，并且跳转到菜单页面
+     * @param view
+     */
+    public void Login_Fun(View view){
 
+        startActivity(new Intent(MainActivity.this,MeunActivity.class));
+
+    }
 
 
     /**

@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userfun.RegisterActivity"></activity>
+        <activity android:name=".userfun.RegisterActivity" />
+        <activity
+            android:name=".userfun.MeunActivity"
+            android:label="@string/title_activity_meun"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
