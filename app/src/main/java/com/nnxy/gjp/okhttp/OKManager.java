@@ -36,18 +36,21 @@ public class OKManager {
         okHttpClient=new OkHttpClient();
         handler = new Handler(Looper.getMainLooper());
     }
-    //采用单例模式获取对象
+//    //采用单例模式获取对象
+//    public static OKManager getInstance(){
+//        OKManager instance = null;
+//        if (okManager==null){
+//            synchronized (OKManager.class){
+//                if (instance==null){
+//                    instance=new OKManager();
+//                    okManager=instance;
+//                }
+//            }
+//        }
+//        return instance;
+//    }
     public static OKManager getInstance(){
-        OKManager instance = null;
-        if (okManager==null){
-            synchronized (OKManager.class){
-                if (instance==null){
-                    instance=new OKManager();
-                    okManager=instance;
-                }
-            }
-        }
-        return instance;
+       return new OKManager();
     }
 
     /***

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nnxy.gjp.R;
-import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONException;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     public static final String TGA = MainActivity.class.getSimpleName();
 
-    private OKManager manager;
+    private OKManager manager ;
 
     private EditText username,password;
 
@@ -89,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-
 //        userMap.put("username","tom");
 //        userMap.put("password","123456");
 //        manager.sendComplexForm("http://10.0.2.2:8080/Demo/loginServlet", userMap, null);
 
-
+//        startActivity(new Intent(MainActivity.this,MeunActivity.class));
     }
 
 

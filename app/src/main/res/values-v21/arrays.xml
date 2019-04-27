@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="zhangwu_leibie">
+        <item>收入</item>
+        <item>支出</item>
+    </string-array>
+    <string-array name="input_account">
+        <item>工资</item>
+        <item>捡钱</item>
+        <item>金融</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="ouput_accunt">
+        <item>丢钱</item>
+        <item>购物</item>
+        <item>吃饭</item>
+        <item>其他</item>
+    </string-array>
+    
+</resources>
