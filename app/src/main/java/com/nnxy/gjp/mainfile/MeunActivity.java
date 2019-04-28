@@ -16,10 +16,12 @@ import android.view.MenuItem;
 
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.fragment.AddAccountFragment;
+import com.nnxy.gjp.fragment.SelectAccountFragment;
 
 public class MeunActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private  AddAccountFragment addAccountFragment;
+    private SelectAccountFragment selectAccountFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +79,14 @@ public class MeunActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_add_account) {
             // Handle the camera action
-        addAccountFragment =new AddAccountFragment();
-        getFragmentManager().beginTransaction().add(R.id.fl_container,addAccountFragment).commitAllowingStateLoss();
+            addAccountFragment =new AddAccountFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).commitAllowingStateLoss();
 
-
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_select_account) {
+             selectAccountFragment =new SelectAccountFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).commitAllowingStateLoss();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

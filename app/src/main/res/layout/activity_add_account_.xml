@@ -159,7 +159,7 @@
             android:layout_margin="10dp"
             android:layout_toLeftOf="@+id/btn_inqx"
             android:background="@android:color/darker_gray"
-            android:onClick="insertAccount"
+            android:id="@+id/addAccount_btn"
             android:text="保存"
             android:textSize="20sp" />
 
