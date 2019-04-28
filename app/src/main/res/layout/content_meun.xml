@@ -7,10 +7,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".mainfile.MeunActivity"
     tools:showIn="@layout/app_bar_meun">
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="123"/>
+    </FrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>

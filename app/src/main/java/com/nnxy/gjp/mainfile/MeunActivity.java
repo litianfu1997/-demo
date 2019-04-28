@@ -15,10 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.fragment.AddAccountFragment;
 
 public class MeunActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private  AddAccountFragment addAccountFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,10 @@ public class MeunActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            setContentView(R.layout.activity_add_account_);
+        addAccountFragment =new AddAccountFragment();
+        getFragmentManager().beginTransaction().add(R.id.fl_container,addAccountFragment).commitAllowingStateLoss();
+
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
