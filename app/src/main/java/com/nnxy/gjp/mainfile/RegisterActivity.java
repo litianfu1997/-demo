@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
             reguser.put("userPhone",userPhone);
             reguser.put("userName",userName);
 
-//            http://10.0.2.2:8080/acountService/user/register.action
+//            http://10.0.2.2:8080/accountService/user/register.action
             manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/register.action", reguser, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {

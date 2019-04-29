@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户名:"
+            android:text="账      号 :  "
             android:textColor="@android:color/background_dark"
             android:textSize="25sp" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/For_UserName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入用户名"
+            android:hint="请输入账号"
             android:inputType="text" />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="手机号:"
+            android:text="手  机  号:  "
             android:textColor="@android:color/background_dark"
             android:textSize="25sp" />
 
@@ -71,7 +71,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="新密码:"
+            android:text="新  密  码:  "
             android:textColor="@android:color/background_dark"
             android:textSize="25sp" />
 
@@ -80,7 +80,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="修改后的新密码"
-            android:inputType="text" />
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,7 +101,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="确认新密码"
-            android:inputType="text" />
+            android:inputType="textPassword" />
     </LinearLayout>
 
 
@@ -112,7 +112,7 @@
         android:onClick="Register_NewUser"
         android:textSize="20dp"
         android:background="#FF249D90"
-        android:text="下 一 步" />
+        android:text="修改密码" />
 
 
 </LinearLayout>
