@@ -1,5 +1,6 @@
 package com.nnxy.gjp.mainfile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.fragment.AddAccountFragment;
+import com.nnxy.gjp.fragment.SelectAccountFragment;
 
 public class MeunActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private  AddAccountFragment addAccountFragment;
+    private SelectAccountFragment selectAccountFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +29,7 @@ public class MeunActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,10 +79,14 @@ public class MeunActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_add_account) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            addAccountFragment =new AddAccountFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).commitAllowingStateLoss();
 
+        } else if (id == R.id.nav_select_account) {
+             selectAccountFragment =new SelectAccountFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).commitAllowingStateLoss();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -96,7 +97,8 @@ public class MeunActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
