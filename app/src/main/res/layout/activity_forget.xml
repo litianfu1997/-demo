@@ -76,7 +76,7 @@
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/For_PhoneNumber"
+            android:id="@+id/For_NewPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="修改后的新密码"
@@ -97,7 +97,7 @@
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/For_PhoneNumber"
+            android:id="@+id/For_ConfirmPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="确认新密码"
