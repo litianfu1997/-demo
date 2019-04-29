@@ -1,9 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainfile.ForgetActivity">
+    android:layout_margin="20dp"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:weightSum="9"
+    tools:context=".mainfile.ForgetActivity"
+    tools:paddingTop="30dp">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="找回密码"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="48sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/For_UserName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入用户名"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/For_PhoneNumber"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入注册时的手机号"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新密码:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/For_PhoneNumber"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="修改后的新密码"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认密码:"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/For_PhoneNumber"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="确认新密码"
+            android:inputType="text" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_Register_1"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:onClick="Register_NewUser"
+        android:textSize="20dp"
+        android:background="#FF249D90"
+        android:text="下 一 步" />
+
+
+</LinearLayout>
