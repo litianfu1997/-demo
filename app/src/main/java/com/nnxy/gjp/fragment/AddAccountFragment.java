@@ -18,14 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.entity.User;
+import com.nnxy.gjp.okhttp.OKManager;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class AddAccountFragment extends Fragment {
     private Button addAccountBtn;
     private Calendar calendar;
     private int mYear,mMonth,mDay;
-
+    private OKManager manager;
 
     private Spinner output_LeiBie = null;
 
@@ -36,7 +41,7 @@ public class AddAccountFragment extends Fragment {
 
 
 
-    private EditText money,date,address,note;
+    private EditText money,date,note;
 
     /**
      * 创建view，相当于Activity的setContentView（）；
@@ -65,12 +70,9 @@ public class AddAccountFragment extends Fragment {
         this.output_LeiBie =  view.findViewById(R.id.zhangwu_leibie);
         this.leiBie =  view.findViewById(R.id.leibie);
         this.output_LeiBie.setOnItemSelectedListener(new OnItemSelectedListenerImp());
-
-
-
+        manager = OKManager.getInstance();
         money=view.findViewById(R.id.acc_money);
         date=view.findViewById(R.id.acc_date);
-        address=view.findViewById(R.id.acc_address);
         note=view.findViewById(R.id.acc_note);
 
         calendar=Calendar.getInstance();
@@ -85,9 +87,22 @@ public class AddAccountFragment extends Fragment {
                         Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
                     }else if (date.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
-                    }else if (address.getText().toString().trim().equals("")){
-                        Toast.makeText(getActivity(),"地址不能为空",Toast.LENGTH_LONG).show();
                     }else{
+                        HashMap<String,String> accountMap = new HashMap<String,String>();
+                        accountMap.put("userId", "");
+                        accountMap.put("accCreateDate",date.getText().toString());
+                        accountMap.put("accMoney",money.getText().toString());
+                        accountMap.put("accType",output_LeiBie.getSelectedItem().toString());
+                        accountMap.put("accStyle",leiBie.getSelectedItem().toString());
+                        accountMap.put("accNote",note.getText().toString());
+
+                        manager.sendComplexForm("", accountMap, new OKManager.Func4() {
+                            @Override
+                            public void onResponse(JSONObject jsonObject) {
+
+                            }
+                        });
+
                         Toast.makeText(getActivity(),"插入.........",Toast.LENGTH_LONG).show();
                     }
                 }

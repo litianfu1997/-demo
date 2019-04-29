@@ -30,22 +30,21 @@ public class AccountAdapter extends ArrayAdapter {
         View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
 
         //2.通过id，获取textView
-        TextView id = view.findViewById(R.id.zhangwuID);
+
         TextView shiJianTv = view.findViewById(R.id.shijian);
-        TextView diDianTv = view.findViewById(R.id.didian);
+
         TextView jinETv = view.findViewById(R.id.jine);
         TextView shouZhiLeiXingTv = view.findViewById(R.id.shouzhileixing);
         TextView leiXingTv = view.findViewById(R.id.leixing);
         TextView beiZhuTv = view.findViewById(R.id.beizhu);
 
         //3.设置你要填入的信息
-//        id.setText(account.getAccId().toString());
-//        shiJianTv.setText(account.getAccCreateDate());
-//        diDianTv.setText(account.geta());
-//        jinETv.setText(Double.toString(account.getMoney()));
-//        shouZhiLeiXingTv.setText(account.g());
-//        leiXingTv.setText(account.getLeibie());
-//        beiZhuTv.setText(account.getAccNote());
+
+        shiJianTv.setText(account.getAccCreateDate());
+        jinETv.setText(Double.toString(account.getAccMoney()));
+        shouZhiLeiXingTv.setText(account.getAccType() ? "收入":"支出");
+        leiXingTv.setText(account.getAccStyle());
+        beiZhuTv.setText(account.getAccNote());
         return view;
     }
 }

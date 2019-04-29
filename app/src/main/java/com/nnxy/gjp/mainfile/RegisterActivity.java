@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         ed_nicheng = findViewById(R.id.Reg_name);
         manager = OKManager.getInstance();
 
-        System.out.println(manager);
+
     }
 
     public void Register_NewUser(View view){
@@ -59,7 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
             reguser.put("userPhone",userPhone);
             reguser.put("userName",userName);
 
-            manager.sendComplexForm("http://10.0.2.2:8080/Demo/regServlet", reguser, new OKManager.Func4() {
+//            http://10.0.2.2:8080/acountService/user/register.action
+            manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/register.action", reguser, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {

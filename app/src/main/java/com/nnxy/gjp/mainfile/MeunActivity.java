@@ -16,12 +16,14 @@ import android.view.MenuItem;
 
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.fragment.AddAccountFragment;
+import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
 
 public class MeunActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private  AddAccountFragment addAccountFragment;
     private SelectAccountFragment selectAccountFragment;
+    private AllAccountFragment allAccountFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class MeunActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
     }
 
     @Override
@@ -87,13 +91,14 @@ public class MeunActivity extends AppCompatActivity
         } else if (id == R.id.nav_select_account) {
              selectAccountFragment =new SelectAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).commitAllowingStateLoss();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_home) {
+            allAccountFragment = new AllAccountFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).commitAllowingStateLoss();
+        } else if (id == R.id.nav_account_tj) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_exit) {
 
         }
 

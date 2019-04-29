@@ -128,7 +128,7 @@ tools:paddingTop="30dp">
     android:paddingTop="50dp">
 
     <Button
-        android:id="@+id/btn_Register_1"
+
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FF249D90"
