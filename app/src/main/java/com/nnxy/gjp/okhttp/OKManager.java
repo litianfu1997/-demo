@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.nnxy.gjp.entity.Account;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,12 +81,11 @@ public class OKManager {
 
     /**
      * 表单提交
-     *
-     * @param url
+     *  @param url
      * @param params
      * @param callBack
      */
-    public void sendComplexForm(String url, Map<String,String> params,final Func4 callBack){
+    public void sendComplexForm(String url, Map<String, String> params, final Func4 callBack){
         FormBody.Builder form_builder=new FormBody.Builder();//表单对象，包含以input开始的对象，以html表单为主。
         if (params!=null&&!params.isEmpty()){
             for (Map.Entry<String,String> entry:params.entrySet()){
@@ -108,6 +109,34 @@ public class OKManager {
                 }
             }
         });
+    }
+
+   public void sendComplexFormByJson(String url, String json,final Func4 callBack) {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response!=null&&response.isSuccessful()){
+                    onSuccessJosnObjectMethod(response.body().string(),callBack);
+
+                }
+            }
+        });
+//        Response response = client.newCall(request).execute();
+//        if (response.isSuccessful()) {
+//            return response.body().string();
+//        } else {
+//            throw new IOException("Unexpected code " + response);
+//        }
     }
 
     /***

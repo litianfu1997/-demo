@@ -2,12 +2,14 @@ package com.nnxy.gjp.application;
 
 import android.app.Application;
 
+import com.dbmanager.CommomUtils;
 import com.nnxy.gjp.entity.User;
 
 import org.json.JSONObject;
 
 
 public class MyApplication extends Application {
+
 
     private static JSONObject user1;
 

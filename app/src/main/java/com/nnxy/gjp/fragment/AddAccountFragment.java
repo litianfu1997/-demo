@@ -1,9 +1,11 @@
 package com.nnxy.gjp.fragment;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +16,25 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dbmanager.CommomUtils;
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.application.MyApplication;
+import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.okhttp.OKManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AddAccountFragment extends Fragment {
     private Button addAccountBtn;
@@ -39,10 +49,13 @@ public class AddAccountFragment extends Fragment {
             {"购物", "吃饭", "出行", "其他"}};
     private ArrayAdapter<CharSequence> adapterArea = null;
 
-
+    private List<Account> accountList;
 
     private EditText money,date,note;
 
+    private Account account;
+
+    private CommomUtils accountUtils;
     /**
      * 创建view，相当于Activity的setContentView（）；
      * @param inflater
@@ -76,36 +89,96 @@ public class AddAccountFragment extends Fragment {
         note=view.findViewById(R.id.acc_note);
 
         calendar=Calendar.getInstance();
-
+        accountUtils = new CommomUtils(getActivity());
         addAccountBtn = view.findViewById(R.id.addAccount_btn);
 
-        if (getActivity() != null){
+        if (getActivity() != null&&accountUtils != null){
+
             addAccountBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    account = new Account();
+                    try {
+                        account.setUserId(Integer.parseInt(MyApplication.getUser().getString("userId")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
+                    account.setAccMoney(Double.valueOf(money.getText().toString()));
+                    account.setAccCreateDate(date.getText().toString());
+                    if (output_LeiBie.getSelectedItem().toString().equals("收入")){
+                        account.setAccType(true);
+                    }else {
+                        account.setAccType(false);
+                    }
+                    account.setAccStyle(leiBie.getSelectedItem().toString());
+                    account.setAccNote(note.getText().toString());
                     if (money.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
                     }else if (date.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
-                    }else{
-                        HashMap<String,String> accountMap = new HashMap<String,String>();
-                        accountMap.put("userId", "");
-                        accountMap.put("accCreateDate",date.getText().toString());
-                        accountMap.put("accMoney",money.getText().toString());
-                        accountMap.put("accType",output_LeiBie.getSelectedItem().toString());
-                        accountMap.put("accStyle",leiBie.getSelectedItem().toString());
-                        accountMap.put("accNote",note.getText().toString());
+                    }else {
+                        if (accountUtils.insertAccount(account)){//插入账务
 
-                        manager.sendComplexForm("", accountMap, new OKManager.Func4() {
-                            @Override
-                            public void onResponse(JSONObject jsonObject) {
-
-                            }
-                        });
-
-                        Toast.makeText(getActivity(),"插入.........",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(),"插入成功",Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(),"插入失败",Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
+
+//                @Override
+//                public void onClick(View v) {
+//                    if (money.getText().toString().trim().equals("")){
+//                        Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
+//                    }else if (date.getText().toString().trim().equals("")){
+//                        Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
+//                    }else{
+//                        HashMap<String,String> accountMap = new HashMap<String,String>();
+//                        try {
+//                            accountMap.put("userId", MyApplication.getUser().getString("userId"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        accountMap.put("accCreateDate",date.getText().toString());
+//                        accountMap.put("accMoney",money.getText().toString());
+//                        accountMap.put("accType",output_LeiBie.getSelectedItem().toString());
+//                        accountMap.put("accStyle",leiBie.getSelectedItem().toString());
+//                        accountMap.put("accNote",note.getText().toString());
+//
+////                        accountList =new ArrayList<Account>();
+//////                        Map<Integer,Account> accountMap1 = accountList.stream().collect(Collectors.toMap(User::getUserId, Function.identity(),(key1,key2)-> key2));
+////                        Map<Integer, Account> maps = Maps.uniqueIndex(accountList, new Function<Account, Integer>() {
+////
+////                            @Override
+////                            public Integer apply( Account account) {
+////                                return account.getAccId();
+////                            }
+////                        });
+//
+//
+//
+//                        manager.sendComplexForm("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountMap, new OKManager.Func4() {
+//                            @Override
+//                            public void onResponse(JSONObject jsonObject) {
+//
+//                                try {
+//                                    if (jsonObject.getString("status").equals("success")){
+//
+//                                        Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
+//                                    }else if (jsonObject.getString("status").equals("error")){
+//                                        Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//
+//                                }
+//                            }
+//                        });
+//
+////                        Toast.makeText(getActivity(),"插入.........",Toast.LENGTH_LONG).show();
+//                    }
+//                }
             });
 
             date.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +201,7 @@ public class AddAccountFragment extends Fragment {
             });
 
         }else {
-            System.out.println("getActivity为空！");
+            System.out.println("getActivity为空或者accountUtils为空！");
         }
 
 

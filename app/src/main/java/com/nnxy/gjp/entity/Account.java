@@ -1,20 +1,31 @@
 package com.nnxy.gjp.entity;
 
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.ToOne;
+import org.greenrobot.greendao.DaoException;
+import com.gwj.mygreendao.greendao.gen.DaoSession;
+import com.gwj.mygreendao.greendao.gen.UserDao;
+import com.gwj.mygreendao.greendao.gen.AccountDao;
+
 /**
  * @Classname Account
  * @Date 2019/4/26 15:22
  * @author litianfu
  * @Email 1035869369@qq.com
  */
-
+@Entity
 public class Account {
+    @Id
     private Integer accId;
     private String accCreateDate;
     private Boolean accType;
     private String accStyle;
-    private Double accMoney;
-    private String accNote;
-    private Boolean accIsDel;
+    private Double accMoney;//金额
+    private String accNote;//备注
+    private Boolean accIsDel;//是否被删除
 
     //用户操作的标志位
     /**
@@ -26,12 +37,22 @@ public class Account {
     /**
      * 一对一引用用户表
      */
+    private Integer userId;
+    @ToOne(joinProperty = "userId")
     private User user;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 335469827)
+    private transient AccountDao myDao;
+    @Generated(hash = 51970384)
+    private transient Integer user__resolvedKey;
 
-    public Account() {
-    }
-
-    public Account(Integer accId, String accCreateDate, Boolean accType, String accStyle, Double accMoney, String accNote, Boolean accIsDel, Integer operateFlag, User user) {
+    @Generated(hash = 1430995636)
+    public Account(Integer accId, String accCreateDate, Boolean accType,
+            String accStyle, Double accMoney, String accNote, Boolean accIsDel,
+            Integer operateFlag, Integer userId) {
         this.accId = accId;
         this.accCreateDate = accCreateDate;
         this.accType = accType;
@@ -40,92 +61,131 @@ public class Account {
         this.accNote = accNote;
         this.accIsDel = accIsDel;
         this.operateFlag = operateFlag;
-        this.user = user;
+        this.userId = userId;
     }
-
+    @Generated(hash = 882125521)
+    public Account() {
+    }
     public Integer getAccId() {
-        return accId;
+        return this.accId;
     }
-
     public void setAccId(Integer accId) {
         this.accId = accId;
     }
-
     public String getAccCreateDate() {
-        return accCreateDate;
+        return this.accCreateDate;
     }
-
     public void setAccCreateDate(String accCreateDate) {
         this.accCreateDate = accCreateDate;
     }
-
     public Boolean getAccType() {
-        return accType;
+        return this.accType;
     }
-
     public void setAccType(Boolean accType) {
         this.accType = accType;
     }
-
     public String getAccStyle() {
-        return accStyle;
+        return this.accStyle;
     }
-
     public void setAccStyle(String accStyle) {
         this.accStyle = accStyle;
     }
-
     public Double getAccMoney() {
-        return accMoney;
+        return this.accMoney;
     }
-
     public void setAccMoney(Double accMoney) {
         this.accMoney = accMoney;
     }
-
     public String getAccNote() {
-        return accNote;
+        return this.accNote;
     }
-
     public void setAccNote(String accNote) {
         this.accNote = accNote;
     }
-
     public Boolean getAccIsDel() {
-        return accIsDel;
+        return this.accIsDel;
     }
-
     public void setAccIsDel(Boolean accIsDel) {
         this.accIsDel = accIsDel;
     }
-
     public Integer getOperateFlag() {
-        return operateFlag;
+        return this.operateFlag;
     }
-
     public void setOperateFlag(Integer operateFlag) {
         this.operateFlag = operateFlag;
     }
-
+    public Integer getUserId() {
+        return this.userId;
+    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 462557195)
     public User getUser() {
+        Integer __key = this.userId;
+        if (user__resolvedKey == null || !user__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            UserDao targetDao = daoSession.getUserDao();
+            User userNew = targetDao.load(__key);
+            synchronized (this) {
+                user = userNew;
+                user__resolvedKey = __key;
+            }
+        }
         return user;
     }
-
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 496399742)
     public void setUser(User user) {
-        this.user = user;
+        synchronized (this) {
+            this.user = user;
+            userId = user == null ? null : user.getUserId();
+            user__resolvedKey = userId;
+        }
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1812283172)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getAccountDao() : null;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accId=" + accId +
-                ", accCreateDate='" + accCreateDate + '\'' +
-                ", accType=" + accType +
-                ", accStyle='" + accStyle + '\'' +
-                ", accMoney=" + accMoney +
-                ", accNote='" + accNote + '\'' +
-                ", accIsDel=" + accIsDel +
-                ", operateFlag=" + operateFlag +
-                '}';
-    }
+
 }
