@@ -14,10 +14,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dbmanager.CommomUtils;
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.application.MyApplication;
+import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.fragment.AddAccountFragment;
 import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
+
+import org.json.JSONException;
+
+import java.util.List;
 
 public class MeunActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,6 +78,18 @@ public class MeunActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            CommomUtils accountUtils =new CommomUtils(getApplicationContext());
+
+            List<Account> accountList = null;
+            try {
+                accountList = accountUtils.queryAllAccount(Integer.parseInt(MyApplication.getUser().getString("userId")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            System.out.println(accountList);
+
+
             return true;
         }
 
@@ -107,4 +126,6 @@ public class MeunActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

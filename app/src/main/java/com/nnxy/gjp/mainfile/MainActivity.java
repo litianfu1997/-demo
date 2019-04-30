@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.entity.User;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private OKManager manager ;
 
-    private EditText username,password;
+    private EditText userCode,password;
 
 
     @Override
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //找到组件
-        username = findViewById(R.id.ed_username);
+        userCode = findViewById(R.id.ed_username);
         password = findViewById(R.id.ed_password);
         //获取网络框架manager
         manager = OKManager.getInstance();
@@ -63,14 +64,20 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String,String> userMap=new HashMap<String, String>();
 //        userMap.put("username","tom");
 //        userMap.put("password","123456");
-        final String user =  username.getText().toString();
+        String userCodeStr =  userCode.getText().toString();
         String pwd = password.getText().toString();
-        userMap.put("userCode",user);
-        userMap.put("password",pwd);
-        if(user.trim().equals("")||pwd.trim().equals("")){
+
+
+
+        if(userCodeStr.trim().equals("")||pwd.trim().equals("")){
             Toast.makeText(getApplicationContext(),"用户名和密码不能为空",Toast.LENGTH_LONG).show();
         }else{
-            manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/login.action", userMap, new OKManager.Func4() {
+            User user =new User();
+            user.setUserCode(userCodeStr);
+            user.setPassword(pwd);
+            Gson gson =new Gson();
+            String str =gson.toJson(user);
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/login.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) { //将服务器表单提交到
 

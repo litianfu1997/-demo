@@ -63,7 +63,7 @@ public class OKManager {
      */
 
     public void sendStringByPostMethod(String url,String content,final Func4 callBack){
-        Request request=new Request.Builder().url(url).post(RequestBody.create(MEDIA_TYPE_MARKDOWN,content)).build();
+        Request request=new Request.Builder().url(url).post(RequestBody.create(JSON,content)).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONException;
@@ -53,14 +55,16 @@ public class RegisterActivity extends AppCompatActivity {
         }else if(!(password.equals(repassword))){
             Toast.makeText(getApplicationContext(),"两次密码不一致",Toast.LENGTH_LONG).show();
         }else {
-            HashMap<String,String > reguser = new HashMap<String, String>();
-            reguser.put("userCode",userCode);
-            reguser.put("password",password);
-            reguser.put("userPhone",userPhone);
-            reguser.put("userName",userName);
 
-//            http://10.0.2.2:8080/accountService/user/register.action
-            manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/register.action", reguser, new OKManager.Func4() {
+            User user = new User();
+            user.setUserCode(userCode);
+            user.setPassword(password);
+            user.setUserPhone(userPhone);
+            user.setUserName(userName);
+            Gson gson =new Gson();
+            String userJson = gson.toJson(user);
+
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/register.action", userJson, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {
@@ -74,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             });
+
 
         }
     }

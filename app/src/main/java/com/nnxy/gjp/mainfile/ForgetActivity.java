@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.application.MyApplication;
+import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONException;
@@ -37,11 +39,11 @@ public class ForgetActivity extends AppCompatActivity {
         String rePassword = rPwd.getText().toString();
         String userCode = user.getText().toString();
 
-        newPwdMap = new HashMap<String, String>();
-
-            newPwdMap.put("userCode",userCode);
-            newPwdMap.put("password",newPassword);
-            newPwdMap.put("userPhone",phoneNum);
+//        newPwdMap = new HashMap<String, String>();
+//
+//            newPwdMap.put("userCode",userCode);
+//            newPwdMap.put("password",newPassword);
+//            newPwdMap.put("userPhone",phoneNum);
 //            newPwdMap.put("userName",MyApplication.getUser().getString("userName"));
 
 
@@ -50,7 +52,17 @@ public class ForgetActivity extends AppCompatActivity {
         }else if (!(newPassword.equals(rePassword))){
             Toast.makeText(getApplicationContext(),"两次密码不一致！",Toast.LENGTH_LONG).show();
         }else {
-            manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/checkUserPhone.action", newPwdMap, new OKManager.Func4() {
+
+            User user =new User();
+            user.setUserCode(userCode);
+            user.setUserPhone(phoneNum);
+            user.setPassword(newPassword);
+
+            Gson gson =new Gson();
+            final String str =gson.toJson(user);
+
+
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/checkUserPhone.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {
@@ -58,7 +70,7 @@ public class ForgetActivity extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
 
 //                            System.out.println("进入第一个if");
-                            manager.sendComplexForm("http://10.0.2.2:8080/accountService/user/updatePassword.action", newPwdMap, new OKManager.Func4() {
+                            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/updatePassword.action",str , new OKManager.Func4() {
 
 
                             @Override
