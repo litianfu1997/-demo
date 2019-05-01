@@ -49,6 +49,9 @@ public class CommomUtils {
 
     }
 
+    public void updateAccount(Account account){
+        manager.getDaoSession().update(account);
+    }
 
     /***
      * 更新用户

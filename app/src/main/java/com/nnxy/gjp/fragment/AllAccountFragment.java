@@ -17,12 +17,17 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.dbmanager.CommomUtils;
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.adapter.AccountAdapter;
+import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.okhttp.OKManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +35,11 @@ import java.util.List;
 public class AllAccountFragment extends Fragment {
 
 
-
+    private CommomUtils commomUtils;
 
 
     private ListView listView;
-    private String str[]={"123","456"};
+   // private String str[]={"123","456"};
     private List<Account> accountList;
     @Nullable
     @Override
@@ -50,9 +55,33 @@ public class AllAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.select_all_account_listview);
-//       AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.select_account_layout,null);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,str);
+        commomUtils = new CommomUtils(getActivity());
+        try {
+            accountList = commomUtils.queryAllAccount(Integer.parseInt(MyApplication.getUser().getString("userId")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.select_account_layout,accountList);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,str);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                UpdateOrDeleteAccountFragment updateOrDeleteAccountFragment = new UpdateOrDeleteAccountFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("accId",String.valueOf(accountList.get(position).getAccId()));
+                bundle.putString("money",accountList.get(position).getAccMoney().toString());
+                bundle.putString("date",accountList.get(position).getAccCreateDate());
+                bundle.putString("type", String.valueOf((accountList.get(position).getAccType() ? true:false)));
+                bundle.putString("style",accountList.get(position).getAccStyle());
+                bundle.putString("note",accountList.get(position).getAccNote());
+                updateOrDeleteAccountFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).addToBackStack(null).commitAllowingStateLoss();
+
+            }
+        });
 
 
     }
