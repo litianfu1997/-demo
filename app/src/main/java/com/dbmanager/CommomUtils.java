@@ -67,7 +67,7 @@ public class CommomUtils {
      * 删除用户
      * @param id
      */
-    public void deleteUser(Integer id){
+    public void deleteUser(Long id){
         manager.getDaoSession().getUserDao().deleteByKey(id);
     }
     /***
@@ -78,11 +78,11 @@ public class CommomUtils {
         return manager.getDaoSession().loadAll(User.class);
     }
 
-    public List<User> queryUser(Integer id){
+    public List<User> queryUser(Long id){
         return  manager.getDaoSession().queryBuilder(User.class).where(UserDao.Properties.UserId.eq(id)).list();
     }
 
-    public String queryById4Password(Integer key){
+    public String queryById4Password(Long key){
         return  manager.getDaoSession().load(User.class,key).getPassword();
     }
     public List<User> queryUser(String username){
@@ -96,14 +96,14 @@ public class CommomUtils {
     /**
      * 查询账务
      */
-    public List<Account> queryAllAccount(Integer id){
+    public List<Account> queryAllAccount(Long id){
         return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)).list();
     }
 
     /**
      * 删除账务
      */
-    public void deleteAccount(Integer id){
+    public void deleteAccount(Long id){
         manager.getDaoSession().getAccountDao().deleteByKey(id);
     }
 

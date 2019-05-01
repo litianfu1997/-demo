@@ -99,7 +99,7 @@ public class AddAccountFragment extends Fragment {
                 public void onClick(View v) {
                     account = new Account();
                     try {
-                        account.setUserId(Integer.parseInt(MyApplication.getUser().getString("userId")));
+                        account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

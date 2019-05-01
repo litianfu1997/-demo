@@ -83,7 +83,7 @@ public class MeunActivity extends AppCompatActivity
 
             List<Account> accountList = null;
             try {
-                accountList = accountUtils.queryAllAccount(Integer.parseInt(MyApplication.getUser().getString("userId")));
+                accountList = accountUtils.queryAllAccount(Long.parseLong(MyApplication.getUser().getString("userId")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

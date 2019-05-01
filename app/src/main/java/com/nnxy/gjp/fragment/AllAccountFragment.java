@@ -39,7 +39,7 @@ public class AllAccountFragment extends Fragment {
 
 
     private ListView listView;
-   // private String str[]={"123","456"};
+    private String str[]={"123","456"};
     private List<Account> accountList;
     @Nullable
     @Override
@@ -57,14 +57,14 @@ public class AllAccountFragment extends Fragment {
         listView = view.findViewById(R.id.select_all_account_listview);
         commomUtils = new CommomUtils(getActivity());
         try {
-            accountList = commomUtils.queryAllAccount(Integer.parseInt(MyApplication.getUser().getString("userId")));
+            accountList = commomUtils.queryAllAccount(Long.parseLong(MyApplication.getUser().getString("userId")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.select_account_layout,accountList);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,str);
-        listView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,str);
+       listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

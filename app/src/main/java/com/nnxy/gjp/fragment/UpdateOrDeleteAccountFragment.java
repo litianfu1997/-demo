@@ -92,10 +92,11 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 account = new Account();
-                account.setAccId(Integer.parseInt(bundle.get("accId").toString()));
+                account.setAccId(Long.parseLong(bundle.get("accId").toString()));
                 try {
-                    account.setUserId(Integer.parseInt(MyApplication.getUser().getString("userId")));
+                    account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +116,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                     Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
                 }else {
                     accountUtils.updateAccount(account);
-                    Toast.makeText(getActivity(),"更新成功",Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(),"更新成功",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -127,7 +128,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                accountUtils.deleteAccount((Integer) bundle.get("accId"));
+                                accountUtils.deleteAccount(Long.parseLong(bundle.getString("accId")));
                             }
                         }).setNegativeButton("取消",null).show();
 

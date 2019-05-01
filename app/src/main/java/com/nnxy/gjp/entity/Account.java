@@ -19,7 +19,7 @@ import com.gwj.mygreendao.greendao.gen.AccountDao;
 @Entity
 public class Account {
     @Id
-    private Integer accId;
+    private Long accId;
     private String accCreateDate;
     private Boolean accType;
     private String accStyle;
@@ -33,11 +33,11 @@ public class Account {
      * 1 代表需要更新数据库中的此记录
      * 2 代表是一条新纪录,需要插入数据库
      */
-    private Integer operateFlag;
+    private Long operateFlag;
     /**
      * 一对一引用用户表
      */
-    private Integer userId;
+    private Long userId;
     @ToOne(joinProperty = "userId")
     private User user;
     /** Used to resolve relations */
@@ -46,13 +46,10 @@ public class Account {
     /** Used for active entity operations. */
     @Generated(hash = 335469827)
     private transient AccountDao myDao;
-    @Generated(hash = 51970384)
-    private transient Integer user__resolvedKey;
-
-    @Generated(hash = 1430995636)
-    public Account(Integer accId, String accCreateDate, Boolean accType,
+    @Generated(hash = 1839263782)
+    public Account(Long accId, String accCreateDate, Boolean accType,
             String accStyle, Double accMoney, String accNote, Boolean accIsDel,
-            Integer operateFlag, Integer userId) {
+            Long operateFlag, Long userId) {
         this.accId = accId;
         this.accCreateDate = accCreateDate;
         this.accType = accType;
@@ -66,10 +63,10 @@ public class Account {
     @Generated(hash = 882125521)
     public Account() {
     }
-    public Integer getAccId() {
+    public Long getAccId() {
         return this.accId;
     }
-    public void setAccId(Integer accId) {
+    public void setAccId(Long accId) {
         this.accId = accId;
     }
     public String getAccCreateDate() {
@@ -108,22 +105,24 @@ public class Account {
     public void setAccIsDel(Boolean accIsDel) {
         this.accIsDel = accIsDel;
     }
-    public Integer getOperateFlag() {
+    public Long getOperateFlag() {
         return this.operateFlag;
     }
-    public void setOperateFlag(Integer operateFlag) {
+    public void setOperateFlag(Long operateFlag) {
         this.operateFlag = operateFlag;
     }
-    public Integer getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
+    @Generated(hash = 251390918)
+    private transient Long user__resolvedKey;
     /** To-one relationship, resolved on first access. */
-    @Generated(hash = 462557195)
+    @Generated(hash = 859885876)
     public User getUser() {
-        Integer __key = this.userId;
+        Long __key = this.userId;
         if (user__resolvedKey == null || !user__resolvedKey.equals(__key)) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
