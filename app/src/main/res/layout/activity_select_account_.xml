@@ -132,11 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:entries="@array/zhangwu_leibie"/>
-        <Spinner
-            android:id="@+id/select_leibie"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            />
+
 
     </LinearLayout>
 

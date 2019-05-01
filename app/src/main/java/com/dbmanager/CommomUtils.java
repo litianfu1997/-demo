@@ -100,12 +100,51 @@ public class CommomUtils {
         return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)).list();
     }
 
+    public  List<Account> queryAccount(Long id,String startDate,String endDate,Double miniMoney,Double bigMoney,Boolean type){
+        if (!startDate.trim().equals("")){
+
+            endDate="2100-01-01";
+           return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
+           ,AccountDao.Properties.UserId.eq(id)
+           ,AccountDao.Properties.AccType.eq(type)).list();
+
+        }else if(!endDate.trim().equals("")){
+            startDate = "1970-01-01";
+           return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
+                   ,AccountDao.Properties.UserId.eq(id)
+           ,AccountDao.Properties.AccType.eq(type)).list();
+        }else if(miniMoney!=0){
+            bigMoney = 100000000000d;
+            return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
+                    ,AccountDao.Properties.UserId.eq(id)
+                    ,AccountDao.Properties.AccType.eq(type)).list();
+        }else if (bigMoney!=0){
+            return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
+                    ,AccountDao.Properties.UserId.eq(id)
+            ,AccountDao.Properties.AccType.eq(type)).list();
+        } else {
+            endDate="2100-01-01";
+            startDate = "1970-01-01";
+            bigMoney = 1000000000000d;
+
+            return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
+            ,AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
+            ,AccountDao.Properties.AccType.eq(type)).list();
+        }
+
+
+
+    }
+
+
     /**
      * 删除账务
      */
     public void deleteAccount(Long id){
         manager.getDaoSession().getAccountDao().deleteByKey(id);
     }
+
+
 
 
 

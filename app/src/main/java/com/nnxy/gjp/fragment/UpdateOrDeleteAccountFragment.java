@@ -76,7 +76,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         updateAccountBtn = view.findViewById(R.id.updateAccount_btn);
         deleteAccountBtn = view.findViewById(R.id.deleteAccount_btn);
 
-        final Bundle bundle =getArguments();
+        final Bundle bundle = getArguments();
         accountUtils = new CommomUtils(getActivity());
 
         money.setText(bundle.getString("money"));
