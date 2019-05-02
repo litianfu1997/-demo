@@ -87,7 +87,7 @@ public class MeunActivity extends AppCompatActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            System.out.println(accountList);
+
 
 
             return true;
@@ -105,14 +105,14 @@ public class MeunActivity extends AppCompatActivity
         if (id == R.id.nav_add_account) {
             // Handle the camera action
             addAccountFragment =new AddAccountFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).addToBackStack(null).commitAllowingStateLoss();
 
         } else if (id == R.id.nav_select_account) {
              selectAccountFragment =new SelectAccountFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_home) {
             allAccountFragment = new AllAccountFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_account_tj) {
 
         } else if (id == R.id.nav_setting) {

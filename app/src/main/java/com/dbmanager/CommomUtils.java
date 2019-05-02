@@ -97,7 +97,8 @@ public class CommomUtils {
      * 查询账务
      */
     public List<Account> queryAllAccount(Long id){
-        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)).list();
+        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
+        ,AccountDao.Properties.AccIsDel.isNull()).list();
     }
 
     public  List<Account> queryAccount(Long id,String startDate,String endDate,Double miniMoney,Double bigMoney,Boolean type){
@@ -106,22 +107,26 @@ public class CommomUtils {
             endDate="2100-01-01";
            return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
            ,AccountDao.Properties.UserId.eq(id)
-           ,AccountDao.Properties.AccType.eq(type)).list();
+           ,AccountDao.Properties.AccType.eq(type)
+                   ,AccountDao.Properties.AccIsDel.eq(false)).list();
 
         }else if(!endDate.trim().equals("")){
             startDate = "1970-01-01";
            return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
                    ,AccountDao.Properties.UserId.eq(id)
-           ,AccountDao.Properties.AccType.eq(type)).list();
+           ,AccountDao.Properties.AccType.eq(type)
+                   ,AccountDao.Properties.AccIsDel.eq(false)).list();
         }else if(miniMoney!=0){
             bigMoney = 100000000000d;
             return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
                     ,AccountDao.Properties.UserId.eq(id)
-                    ,AccountDao.Properties.AccType.eq(type)).list();
+                    ,AccountDao.Properties.AccType.eq(type)
+                    ,AccountDao.Properties.AccIsDel.eq(false)).list();
         }else if (bigMoney!=0){
             return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
                     ,AccountDao.Properties.UserId.eq(id)
-            ,AccountDao.Properties.AccType.eq(type)).list();
+            ,AccountDao.Properties.AccType.eq(type)
+                    ,AccountDao.Properties.AccIsDel.eq(false)).list();
         } else {
             endDate="2100-01-01";
             startDate = "1970-01-01";
@@ -129,7 +134,7 @@ public class CommomUtils {
 
             return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
             ,AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
-            ,AccountDao.Properties.AccType.eq(type)).list();
+            ,AccountDao.Properties.AccType.eq(type),AccountDao.Properties.AccIsDel.eq(false)).list();
         }
 
 

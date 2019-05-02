@@ -33,7 +33,7 @@ public class Account {
      * 1 代表需要更新数据库中的此记录
      * 2 代表是一条新纪录,需要插入数据库
      */
-    private Long operateFlag;
+    private Long operateFlag=0l;
     /**
      * 一对一引用用户表
      */

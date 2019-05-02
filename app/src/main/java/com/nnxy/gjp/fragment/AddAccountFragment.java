@@ -111,6 +111,8 @@ public class AddAccountFragment extends Fragment {
                     }else {
                         account.setAccType(false);
                     }
+                    account.setOperateFlag(2l);
+                    account.setAccIsDel(false);
                     account.setAccStyle(leiBie.getSelectedItem().toString());
                     account.setAccNote(note.getText().toString());
                     if (money.getText().toString().trim().equals("||")){

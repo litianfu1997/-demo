@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="添加账务"
+        android:text="修改账务"
 
         android:textSize="36sp" />
 

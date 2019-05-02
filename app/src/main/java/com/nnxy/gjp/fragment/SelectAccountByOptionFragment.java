@@ -79,8 +79,8 @@ public class SelectAccountByOptionFragment extends Fragment {
             }
             Toast.makeText(getActivity(),"查询中",Toast.LENGTH_LONG).show();
             final List<Account> accountList = accountUtils.queryAccount(id,startDate,endDate,miniMoney,bigMoney,typeB);
-            System.out.println(id+" "+startDate+" "+ endDate+" "+miniMoney+" "+bigMoney+" "+type);
-            System.out.println(accountList);
+//            System.out.println(id+" "+startDate+" "+ endDate+" "+miniMoney+" "+bigMoney+" "+type);
+//            System.out.println(accountList);
             AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.select_account_layout,accountList);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
