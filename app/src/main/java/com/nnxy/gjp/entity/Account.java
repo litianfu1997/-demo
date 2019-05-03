@@ -40,6 +40,8 @@ public class Account {
     private Long userId;
     @ToOne(joinProperty = "userId")
     private User user;
+
+
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -179,6 +181,26 @@ public class Account {
         }
         myDao.update(this);
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accId=" + accId +
+                ", accCreateDate='" + accCreateDate + '\'' +
+                ", accType=" + accType +
+                ", accStyle='" + accStyle + '\'' +
+                ", accMoney=" + accMoney +
+                ", accNote='" + accNote + '\'' +
+                ", accIsDel=" + accIsDel +
+                ", operateFlag=" + operateFlag +
+                ", userId=" + userId +
+                ", user=" + user +
+                ", daoSession=" + daoSession +
+                ", myDao=" + myDao +
+                ", user__resolvedKey=" + user__resolvedKey +
+                '}';
+    }
+
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1812283172)
     public void __setDaoSession(DaoSession daoSession) {

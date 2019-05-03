@@ -96,9 +96,12 @@ public class CommomUtils {
     /**
      * 查询账务
      */
+    public List<Account> queryAllAccountAndIsDel(Long id){
+        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)).list();
+    }
     public List<Account> queryAllAccount(Long id){
         return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
-        ,AccountDao.Properties.AccIsDel.isNull()).list();
+        ,AccountDao.Properties.AccIsDel.eq(false)).list();
     }
 
     public  List<Account> queryAccount(Long id,String startDate,String endDate,Double miniMoney,Double bigMoney,Boolean type){

@@ -112,9 +112,10 @@ public class AddAccountFragment extends Fragment {
                         account.setAccType(false);
                     }
                     account.setOperateFlag(2l);
-                    account.setAccIsDel(false);
                     account.setAccStyle(leiBie.getSelectedItem().toString());
                     account.setAccNote(note.getText().toString());
+                    account.setAccIsDel(false);
+                    System.out.println(account.toString());
                     if (money.getText().toString().trim().equals("||")){
                         Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
                     }else if (date.getText().toString().trim().equals("")){

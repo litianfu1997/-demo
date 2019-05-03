@@ -13,16 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dbmanager.CommomUtils;
+import com.google.gson.Gson;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.entity.Account;
+import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.fragment.AddAccountFragment;
 import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
+import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -31,6 +36,7 @@ public class MeunActivity extends AppCompatActivity
     private  AddAccountFragment addAccountFragment;
     private SelectAccountFragment selectAccountFragment;
     private AllAccountFragment allAccountFragment;
+    private OKManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,14 +86,38 @@ public class MeunActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
 
             CommomUtils accountUtils =new CommomUtils(getApplicationContext());
-
+            manager = OKManager.getInstance();
             List<Account> accountList = null;
             try {
-                accountList = accountUtils.queryAllAccount(Long.parseLong(MyApplication.getUser().getString("userId")));
+                accountList = accountUtils.queryAllAccountAndIsDel(Long.parseLong(MyApplication.getUser().getString("userId")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
+
+            Gson gson = new Gson();
+            User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
+            for (Account account: accountList ) {
+               account.setUser(user);
+            }
+
+            String accountJsonStr = gson.toJson(accountList);
+
+            System.out.println(accountJsonStr);
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    try {
+                        if (jsonObject.getString("status").equals("success")){
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
+                        }else if (jsonObject.getString("status").equals("error")){
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
 
             return true;

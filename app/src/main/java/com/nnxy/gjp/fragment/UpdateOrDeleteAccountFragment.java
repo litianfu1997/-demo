@@ -105,18 +105,19 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
             account.setAccType(false);
         }
         account.setOperateFlag(1l);
-        account.setAccNote(note.getText().toString());
+
+
 
 
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                account.setAccNote(note.getText().toString());
 
 //                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
 
 
-
+                account.setAccIsDel(false);
                 account.setAccStyle(leiBie.getSelectedItem().toString());
                 if (money.getText().toString().trim().equals("||")){
                     Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
@@ -124,7 +125,9 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                     Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
                 }else {
                     accountUtils.updateAccount(account);
+                    System.out.println(account.toString());
                     Toast.makeText(getActivity(),"更新成功",Toast.LENGTH_LONG).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
                 }
             }
         });
