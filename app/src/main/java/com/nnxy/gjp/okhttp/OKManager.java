@@ -7,6 +7,7 @@ import android.os.Looper;
 
 import com.nnxy.gjp.entity.Account;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,6 +64,29 @@ public class OKManager {
      */
 
     public void sendStringByPostMethod(String url,String content,final Func4 callBack){
+        Request request=new Request.Builder().url(url).post(RequestBody.create(JSON,content)).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response!=null&&response.isSuccessful()){
+                    onSuccessJosnObjectMethod(response.body().string(),callBack);
+                }
+            }
+        });
+    }
+    /***
+     * 向服务器发送字符串，返回JsonArray
+     * @param url
+     * @param content
+     * @param callBack
+     */
+
+    public void sendStringByPostMethod5(String url,String content,final Func5 callBack){
         Request request=new Request.Builder().url(url).post(RequestBody.create(JSON,content)).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -274,6 +298,7 @@ public class OKManager {
         });
     }
 
+
     /***
      * 请求返回的结果是字节数组
      * @param data
@@ -314,6 +339,26 @@ public class OKManager {
             }
         });
     }
+    /***
+     * 返回相应的结果是一个json数组
+     * @param jsonValue
+     * @param callBack
+     */
+    private void onSuccessJosnObjectMethod(final String jsonValue, final Func5 callBack){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack!=null){
+                    try{
+                        callBack.onResponse(new JSONArray(jsonValue));
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+    }
 
     public interface Func1{
         void onResponse(String result);
@@ -326,6 +371,9 @@ public class OKManager {
     }
     public interface Func4{
         void onResponse(JSONObject jsonObject);
+    }
+    public interface Func5{
+        void onResponse(JSONArray jsonArray);
     }
 
 }

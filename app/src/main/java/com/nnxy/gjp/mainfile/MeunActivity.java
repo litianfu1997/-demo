@@ -26,9 +26,11 @@ import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
 import com.nnxy.gjp.okhttp.OKManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeunActivity extends AppCompatActivity
@@ -37,6 +39,8 @@ public class MeunActivity extends AppCompatActivity
     private SelectAccountFragment selectAccountFragment;
     private AllAccountFragment allAccountFragment;
     private OKManager manager;
+    private CommomUtils commomUtils;
+    private List<Account> accounts ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +48,7 @@ public class MeunActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        commomUtils = new CommomUtils(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,7 +87,7 @@ public class MeunActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_syncToServer) {
 
             CommomUtils accountUtils =new CommomUtils(getApplicationContext());
             manager = OKManager.getInstance();
@@ -95,7 +99,7 @@ public class MeunActivity extends AppCompatActivity
             }
 
 
-            Gson gson = new Gson();
+            final Gson gson = new Gson();
             User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
             for (Account account: accountList ) {
                account.setUser(user);
@@ -120,7 +124,44 @@ public class MeunActivity extends AppCompatActivity
             });
 
 
+
             return true;
+
+        }else if (id == R.id.action_syncToClient){
+            final Gson gson = new Gson();
+            User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
+            String userJsonStr = gson.toJson(user);
+            manager = OKManager.getInstance();
+            manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action",userJsonStr , new OKManager.Func5() {
+                @Override
+                public void onResponse(JSONArray jsonArray) {
+                    commomUtils.deleteTable();//进行删除表数据
+                    Account account = null;
+                    accounts =new ArrayList<Account>();
+                    try {
+                        for (int i = 0 ;i < jsonArray.length();i++){
+                            account = gson.fromJson(jsonArray.getJSONObject(i).toString(),Account.class);
+//                            System.out.println(jsonArray.getJSONObject(i));
+//                            account.setUserId(Long.valueOf(MyApplication.getUser().getString("userId")));
+                            account.setUserId(Long.valueOf(jsonArray.getJSONObject(i).getJSONObject("user").getInt("userId")));
+                            System.out.println(account);
+                            accounts.add(account);
+
+
+                        }
+                        for(int i = 0 ; i<accounts.size() ;i++ ){
+                            commomUtils.insertAccount(accounts.get(i));//逐条插入到本地数据库
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(getApplicationContext(),"同步成功",Toast.LENGTH_LONG).show();
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
+                }
+            });
+            return  true;
         }
 
         return super.onOptionsItemSelected(item);

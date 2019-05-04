@@ -111,7 +111,7 @@ public class AddAccountFragment extends Fragment {
                     }else {
                         account.setAccType(false);
                     }
-                    account.setOperateFlag(2l);
+                    account.setOperateFlag(2l);//设置标识符
                     account.setAccStyle(leiBie.getSelectedItem().toString());
                     account.setAccNote(note.getText().toString());
                     account.setAccIsDel(false);

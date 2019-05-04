@@ -90,21 +90,9 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
 
         style_tv.setText(bundle.getString("style"));
 
-        account = new Account();
-        account.setAccId(Long.parseLong(bundle.get("accId").toString()));
-        try {
-            account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        account.setAccMoney(Double.parseDouble(money.getText().toString()));
-        account.setAccCreateDate(date.getText().toString());
-        if (output_LeiBie.getSelectedItem().toString().equals("收入")){
-            account.setAccType(true);
-        }else {
-            account.setAccType(false);
-        }
-        account.setOperateFlag(1l);
+
+
+
 
 
 
@@ -112,8 +100,23 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                account.setAccNote(note.getText().toString());
+                account = new Account();
+                account.setAccId(Long.parseLong(bundle.get("accId").toString()));
+                try {
+                    account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                account.setAccMoney(Double.parseDouble(money.getText().toString()));
+                account.setAccCreateDate(date.getText().toString());
+                account.setOperateFlag(1l);//将操作标识符设置为1
+                if (output_LeiBie.getSelectedItem().toString().equals("收入")){
+                    account.setAccType(true);
+                }else if (output_LeiBie.getSelectedItem().toString().equals("支出")){
+                    account.setAccType(false);
+                }
 
+                account.setAccNote(note.getText().toString());
 //                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
 
 
@@ -139,6 +142,24 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                account = new Account();
+                                account.setAccId(Long.parseLong(bundle.get("accId").toString()));
+                                try {
+                                    account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                account.setAccMoney(Double.parseDouble(money.getText().toString()));
+                                account.setAccCreateDate(date.getText().toString());
+                                account.setOperateFlag(1l);//将操作标识符设置为1
+                                if (output_LeiBie.getSelectedItem().toString().equals("收入")){
+                                    account.setAccType(true);
+                                }else if (output_LeiBie.getSelectedItem().toString().equals("支出")){
+                                    account.setAccType(false);
+                                }
+
+                                account.setAccNote(note.getText().toString());
+//                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
                                 account.setAccStyle(leiBie.getSelectedItem().toString());
                                 account.setAccIsDel(true);
                                 accountUtils.updateAccount(account);

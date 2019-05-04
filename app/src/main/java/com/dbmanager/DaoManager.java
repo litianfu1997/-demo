@@ -5,6 +5,7 @@ import android.content.Context;
 import com.gwj.mygreendao.greendao.gen.DaoMaster;
 import com.gwj.mygreendao.greendao.gen.DaoSession;
 
+import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 
@@ -102,6 +103,7 @@ public class DaoManager {
                 daoSession=null;
             }
         }
+
 
 
 }

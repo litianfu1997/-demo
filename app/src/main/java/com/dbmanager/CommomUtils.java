@@ -3,21 +3,26 @@ package com.dbmanager;
 import android.content.Context;
 
 import com.gwj.mygreendao.greendao.gen.AccountDao;
+import com.gwj.mygreendao.greendao.gen.DaoMaster;
 import com.gwj.mygreendao.greendao.gen.UserDao;
 import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.entity.User;
 
+
+import org.greenrobot.greendao.database.Database;
+import org.jetbrains.annotations.TestOnly;
 
 import java.util.List;
 
 
 public class CommomUtils {
     private  DaoManager manager;
-
+    private Database db;
 
     public CommomUtils(Context context){
         this.manager=DaoManager.getInstance();
         this.manager.init(context);
+         db= new DaoMaster.DevOpenHelper(context, "mydb.sqlite").getWritableDb();
     }
 
     /***
@@ -52,6 +57,17 @@ public class CommomUtils {
     public void updateAccount(Account account){
         manager.getDaoSession().update(account);
     }
+
+    /**
+     * 删除数据表
+     *
+     */
+
+    public void deleteTable( ){
+
+        db.execSQL("delete from ACCOUNT");
+    }
+
 
     /***
      * 更新用户
@@ -97,7 +113,8 @@ public class CommomUtils {
      * 查询账务
      */
     public List<Account> queryAllAccountAndIsDel(Long id){
-        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)).list();
+        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
+        ,AccountDao.Properties.OperateFlag.notEq(0)).list();
     }
     public List<Account> queryAllAccount(Long id){
         return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
