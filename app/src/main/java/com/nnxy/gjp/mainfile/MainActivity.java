@@ -61,9 +61,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void Login_Fun(View view){
 
-        HashMap<String,String> userMap=new HashMap<String, String>();
-//        userMap.put("username","tom");
-//        userMap.put("password","123456");
+
+
         String userCodeStr =  userCode.getText().toString();
         String pwd = password.getText().toString();
 
@@ -102,23 +101,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-//        userMap.put("username","tom");
-//        userMap.put("password","123456");
-//        manager.sendComplexForm("http://10.0.2.2:8080/Demo/loginServlet", userMap, null);
 
-//        startActivity(new Intent(MainActivity.this,MeunActivity.class));
     }
 
-//    public void Login_Fun(View view){
-//
-//     startActivity(new Intent(MainActivity.this,MeunActivity.class));
-//    }
+
     /**
      * 该按钮实现的功能是跳转到注册页面
      * @param view
      */
     public void Intent_reg(View view){
-//        System.out.println("1111111111");
         startActivity(new Intent(MainActivity.this,RegisterActivity.class));
     }
 }

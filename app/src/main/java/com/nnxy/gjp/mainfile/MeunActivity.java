@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dbmanager.CommomUtils;
@@ -41,13 +42,17 @@ public class MeunActivity extends AppCompatActivity
     private OKManager manager;
     private CommomUtils commomUtils;
     private List<Account> accounts ;
+    private TextView nameTextView,phoneTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meun);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //将CommomUtils初始化，这是操作本地数据库的对象
         commomUtils = new CommomUtils(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -57,6 +62,21 @@ public class MeunActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+//        先获取到navigation
+        View headerView = navigationView.getHeaderView(0);
+
+        //将头部信息赋值
+        nameTextView = headerView.findViewById(R.id.header_name_textView);
+        phoneTextView = headerView.findViewById(R.id.phone_textView);
+        try {
+//            设置头部信息
+            nameTextView.setText(MyApplication.getUser().getString("userName"));
+            phoneTextView.setText(MyApplication.getUser().getString("userPhone"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
@@ -87,27 +107,30 @@ public class MeunActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_syncToServer) {
+        if (id == R.id.action_syncToServer) {//同步到服务器按钮
 
-            CommomUtils accountUtils =new CommomUtils(getApplicationContext());
+            //实例化网络框架OKhttp
             manager = OKManager.getInstance();
             List<Account> accountList = null;
             try {
-                accountList = accountUtils.queryAllAccountAndIsDel(Long.parseLong(MyApplication.getUser().getString("userId")));
+                //获取操作标准符不为0的所有数据
+                accountList = commomUtils.queryAllAccountAndIsDel(Long.parseLong(MyApplication.getUser().getString("userId")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
             final Gson gson = new Gson();
+            //通过服务器传过来的json字符串获取user对象
             User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
             for (Account account: accountList ) {
-               account.setUser(user);
+               account.setUser(user);//将user对象放到account对象里
             }
-
+            //将刚刚添加user对象的accountList转换为json字符串
             String accountJsonStr = gson.toJson(accountList);
 
-            System.out.println(accountJsonStr);
+//            System.out.println(accountJsonStr);
+            //并且传输到服务器上
             manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
@@ -127,11 +150,14 @@ public class MeunActivity extends AppCompatActivity
 
             return true;
 
-        }else if (id == R.id.action_syncToClient){
+        }else if (id == R.id.action_syncToClient){//同步到app按钮
             final Gson gson = new Gson();
+            //通过服务器传过来的json字符串获取user对象
             User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
             String userJsonStr = gson.toJson(user);
+//            实例化网络框架
             manager = OKManager.getInstance();
+//            调用网络框架的sendStringByPostMethod5方法，返回值是jsonArray
             manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action",userJsonStr , new OKManager.Func5() {
                 @Override
                 public void onResponse(JSONArray jsonArray) {
@@ -140,11 +166,12 @@ public class MeunActivity extends AppCompatActivity
                     accounts =new ArrayList<Account>();
                     try {
                         for (int i = 0 ;i < jsonArray.length();i++){
+//                            通过服务器传过来的jsonArray解析成Account对象
                             account = gson.fromJson(jsonArray.getJSONObject(i).toString(),Account.class);
-//                            System.out.println(jsonArray.getJSONObject(i));
-//                            account.setUserId(Long.valueOf(MyApplication.getUser().getString("userId")));
-                            account.setUserId(Long.valueOf(jsonArray.getJSONObject(i).getJSONObject("user").getInt("userId")));
-                            System.out.println(account);
+//                            设置每一条账务的userId
+                            account.setUserId(Long.valueOf(jsonArray.getJSONObject(i).getJSONObject("user").getInt("userId")));//设置id
+//                            System.out.println(account);
+//                            将所有的account对象存入list<Account> accounts中
                             accounts.add(account);
 
 
@@ -157,7 +184,7 @@ public class MeunActivity extends AppCompatActivity
                     }
 
                     Toast.makeText(getApplicationContext(),"同步成功",Toast.LENGTH_LONG).show();
-
+//                    跳转到主页面
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
                 }
             });
@@ -174,14 +201,16 @@ public class MeunActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add_account) {
-            // Handle the camera action
+//            跳转到添加账务的界面
             addAccountFragment =new AddAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).addToBackStack(null).commitAllowingStateLoss();
 
         } else if (id == R.id.nav_select_account) {
+//            跳转到查询账务的界面
              selectAccountFragment =new SelectAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_home) {
+//            跳转到主页面
             allAccountFragment = new AllAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_account_tj) {

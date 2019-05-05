@@ -154,7 +154,8 @@ public class CommomUtils {
 
             return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.AccCreateDate.between(startDate,endDate)
             ,AccountDao.Properties.AccMoney.between(miniMoney,bigMoney)
-            ,AccountDao.Properties.AccType.eq(type),AccountDao.Properties.AccIsDel.eq(false)).list();
+            ,AccountDao.Properties.AccType.eq(type),AccountDao.Properties.AccIsDel.eq(false)
+            ,AccountDao.Properties.UserId.eq(id)).list();
         }
 
 

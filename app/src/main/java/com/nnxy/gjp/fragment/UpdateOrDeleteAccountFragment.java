@@ -35,12 +35,13 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
     private Calendar calendar;
     private int mYear,mMonth,mDay;
     private OKManager manager;
-
+    private Bundle bundle;
     private Spinner output_LeiBie = null;
 
     private Spinner leiBie = null;
     private String[][] leiieData = new String[][]{{"工资", "捡钱", "金融", "其他"},
             {"购物", "吃饭", "出行", "其他"}};
+
     private ArrayAdapter<CharSequence> adapterArea = null;
 
     private EditText money,date,note;
@@ -62,9 +63,14 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.output_LeiBie =  view.findViewById(R.id.zhangwu_leibie);
+
         this.leiBie =  view.findViewById(R.id.leibie);
         this.output_LeiBie.setOnItemSelectedListener(new OnItemSelectedListenerImp());
+
+
+
         manager = OKManager.getInstance();
+
         money=view.findViewById(R.id.acc_money);
         date=view.findViewById(R.id.acc_date);
         note=view.findViewById(R.id.acc_note);
@@ -76,7 +82,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         updateAccountBtn = view.findViewById(R.id.updateAccount_btn);
         deleteAccountBtn = view.findViewById(R.id.deleteAccount_btn);
 
-        final Bundle bundle = getArguments();
+        bundle = getArguments();
         accountUtils = new CommomUtils(getActivity());
 
         money.setText(bundle.getString("money"));
@@ -88,13 +94,12 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
             type_tv.setText("收入");
         }
 
-        style_tv.setText(bundle.getString("style"));
 
-
-
-
-
-
+        if (bundle.getString("type").equals("true")){
+            output_LeiBie.setSelection(0);
+        }else {
+            output_LeiBie.setSelection(1);
+        }
 
 
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
@@ -199,9 +204,25 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
             UpdateOrDeleteAccountFragment.this.adapterArea = new ArrayAdapter<CharSequence>(
                     getActivity(), android.R.layout.simple_spinner_item,
                     UpdateOrDeleteAccountFragment.this.leiieData[position]);
+
+
             UpdateOrDeleteAccountFragment.this.adapterArea
                     .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
             UpdateOrDeleteAccountFragment.this.leiBie.setAdapter(UpdateOrDeleteAccountFragment.this.adapterArea);
+            int p ;
+            if (bundle.getString("style").equals("工资")||bundle.getString("style").equals("购物")){
+                p = 0;
+            }else if (bundle.getString("style").equals("捡钱")||bundle.getString("style").equals("吃饭")){
+                p = 1;
+            }else if (bundle.getString("style").equals("金融")||bundle.getString("style").equals("出行")){
+                p = 2;
+            }else {
+                p = 3;
+            }
+                leiBie.setSelection(p);
+
         }
 
         public void onNothingSelected(AdapterView<?> arg0) {

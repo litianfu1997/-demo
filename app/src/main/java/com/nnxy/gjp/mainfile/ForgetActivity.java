@@ -21,11 +21,12 @@ import java.util.HashMap;
 public class ForgetActivity extends AppCompatActivity {
     private OKManager manager;
     private EditText phone,newPwd,rPwd,user;
-    private HashMap<String,String> newPwdMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
+        //初始化各组件
         phone = findViewById(R.id.For_PhoneNumber);
         newPwd = findViewById(R.id.For_NewPassword);
         rPwd = findViewById(R.id.For_ConfirmPassword);
@@ -34,17 +35,13 @@ public class ForgetActivity extends AppCompatActivity {
     }
 
     public void Register_NewUser(View view){
+        //获取各输入框的值
         String phoneNum = phone.getText().toString();
         String newPassword = newPwd.getText().toString();
         String rePassword = rPwd.getText().toString();
         String userCode = user.getText().toString();
 
-//        newPwdMap = new HashMap<String, String>();
-//
-//            newPwdMap.put("userCode",userCode);
-//            newPwdMap.put("password",newPassword);
-//            newPwdMap.put("userPhone",phoneNum);
-//            newPwdMap.put("userName",MyApplication.getUser().getString("userName"));
+
 
 
         if(phoneNum.trim().equals("")||newPassword.trim().equals("")||rePassword.trim().equals("")){
@@ -59,17 +56,16 @@ public class ForgetActivity extends AppCompatActivity {
             user.setPassword(newPassword);
 
             Gson gson =new Gson();
+            //将user对象转换为Json字符串
             final String str =gson.toJson(user);
 
 
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/checkUserPhone.action", str, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/user/checkUserPhone.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {
                         if (jsonObject.getString("status").equals("success")){
-//                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
 
-//                            System.out.println("进入第一个if");
                             manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/updatePassword.action",str , new OKManager.Func4() {
 
 
@@ -77,7 +73,7 @@ public class ForgetActivity extends AppCompatActivity {
                             public void onResponse(JSONObject jsonObject) {
                                 try {
                                     if (jsonObject.getString("status").equals("success")){
-//                                        System.out.println("进入第二个if");
+
                                         Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
                                     }else if (jsonObject.getString("status").equals("error")){
                                         Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();

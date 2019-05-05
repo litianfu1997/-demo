@@ -83,23 +83,9 @@ public class SelectAccountFragment extends Fragment {
                     String endDatestr = endDate.getText().toString();
                     String bigMoneyStr = bigMoney.getText().toString();
                     String miniMoneyStr = miniMoney.getText().toString();
-//                    if(bigMoney.getText().toString().trim().equals("")||miniMoney.getText().toString().trim().equals("")){
-//                        miniMoneyStr = 0d;
-//                        bigMoneyStr = 10000000000000d;
-//                    }else {
-//                        bigMoneyStr = Double.valueOf(bigMoney.getText().toString());
-//                        miniMoneyStr = Double.valueOf(miniMoney.getText().toString());
-//                    }
 
                     String typeStr = output_LeiBie.getSelectedItem().toString();
-//                    Boolean typeB;
-//                    if (typeStr.equals("收入")){
-//                         typeB = true;
-//                    }else {
-//                        typeB = false;
-//
-//                    }
-//                    List<Account> accountList = accountUtils.queryAccount(startDatestr,endDatestr,miniMoneyStr,bigMoneyStr,typeB);
+
                     Bundle bundle = new Bundle();
                     SelectAccountByOptionFragment selectAccountByOptionFragment = new SelectAccountByOptionFragment();
                     bundle.putString("startDatestr",startDatestr);
