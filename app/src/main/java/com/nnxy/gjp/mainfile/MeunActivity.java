@@ -25,6 +25,7 @@ import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.fragment.AddAccountFragment;
 import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
+import com.nnxy.gjp.fragment.StatFragment;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONArray;
@@ -214,7 +215,8 @@ public class MeunActivity extends AppCompatActivity
             allAccountFragment = new AllAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_account_tj) {
-
+            StatFragment statFragment = new StatFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,statFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_exit) {

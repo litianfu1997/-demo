@@ -121,6 +121,11 @@ public class CommomUtils {
         ,AccountDao.Properties.AccIsDel.eq(false)).list();
     }
 
+    public List<Account> queryAllAccountByDate(Long id,String start,String end){
+        return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
+                ,AccountDao.Properties.AccIsDel.eq(false),AccountDao.Properties.AccCreateDate.between(start,end)).list();
+    }
+
     public  List<Account> queryAccount(Long id,String startDate,String endDate,Double miniMoney,Double bigMoney,Boolean type){
         if (!startDate.trim().equals("")){
 

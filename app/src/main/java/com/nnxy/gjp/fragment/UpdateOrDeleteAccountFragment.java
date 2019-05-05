@@ -74,8 +74,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         money=view.findViewById(R.id.acc_money);
         date=view.findViewById(R.id.acc_date);
         note=view.findViewById(R.id.acc_note);
-        type_tv = view.findViewById(R.id.type);
-        style_tv = view.findViewById(R.id.style);
+
 
         calendar=Calendar.getInstance();
         accountUtils = new CommomUtils(getActivity());
@@ -88,11 +87,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
         money.setText(bundle.getString("money"));
         date.setText(bundle.getString("date"));
         note.setText(bundle.getString("note"));
-        if (bundle.getString("type").equals("false")){
-            type_tv.setText("支出");
-        }else {
-            type_tv.setText("收入");
-        }
+
 
 
         if (bundle.getString("type").equals("true")){
