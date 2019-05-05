@@ -45,7 +45,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
     private ArrayAdapter<CharSequence> adapterArea = null;
 
     private EditText money,date,note;
-    private TextView type_tv,style_tv;
+
 
     private Account account;
 

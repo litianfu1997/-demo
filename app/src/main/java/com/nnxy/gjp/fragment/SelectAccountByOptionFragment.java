@@ -95,7 +95,7 @@ public class SelectAccountByOptionFragment extends Fragment {
                     bundle.putString("style",accountList.get(position).getAccStyle());
                     bundle.putString("note",accountList.get(position).getAccNote());
                     updateOrDeleteAccountFragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).addToBackStack(null).commitAllowingStateLoss();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).commitAllowingStateLoss();
 
                 }
             });

@@ -8,16 +8,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dbmanager.CommomUtils;
 import com.google.gson.Gson;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.application.MyApplication;
+import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.okhttp.OKManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TGA = MainActivity.class.getSimpleName();
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void Exit_fun(View view){
+        CommomUtils commomUtils = new CommomUtils(getApplicationContext());
+        commomUtils.deleteTable();
         finish();
     }
 
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String userCodeStr =  userCode.getText().toString();
+        final String userCodeStr =  userCode.getText().toString();
         String pwd = password.getText().toString();
 
 
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             User user =new User();
             user.setUserCode(userCodeStr);
             user.setPassword(pwd);
-            Gson gson =new Gson();
+            final Gson gson =new Gson();
             String str =gson.toJson(user);
             manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/login.action", str, new OKManager.Func4() {
                 @Override
@@ -86,6 +93,46 @@ public class MainActivity extends AppCompatActivity {
                             MyApplication.setUser(jsonObject.getJSONObject("obj"));
 //                           获取userCode
 //                            System.out.println(MyApplication.getUser().getString("userCode"));
+
+                            final Gson gson = new Gson();
+                            //通过服务器传过来的json字符串获取user对象
+                            User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
+                            String userJsonStr = gson.toJson(user);
+
+                            manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action", userJsonStr, new OKManager.Func5() {
+                                @Override
+                                public void onResponse(JSONArray jsonArray) {
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    CommomUtils commomUtils = new CommomUtils(getApplicationContext());
+                                    List<Account> accounts = new ArrayList<>();
+                                    Account account = null;
+                                    accounts =new ArrayList<Account>();
+                                    try {
+                                        for (int i = 0 ;i < jsonArray.length();i++){
+//                            通过服务器传过来的jsonArray解析成Account对象
+                                            account = gson.fromJson(jsonArray.getJSONObject(i).toString(),Account.class);
+//                            设置每一条账务的userId
+                                            account.setUserId(Long.valueOf(jsonArray.getJSONObject(i).getJSONObject("user").getInt("userId")));//设置id
+//                            System.out.println(account);
+//                            将所有的account对象存入list<Account> accounts中
+                                            accounts.add(account);
+
+
+                                        }
+                                        for(int i = 0 ; i<accounts.size() ;i++ ){
+                                            commomUtils.insertAccount(accounts.get(i));//逐条插入到本地数据库
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+
+
                             startActivity(new Intent(MainActivity.this,MeunActivity.class));//登录成功跳转页面
 
                             Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();

@@ -1,9 +1,12 @@
 package com.nnxy.gjp.mainfile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -158,7 +161,7 @@ public class MeunActivity extends AppCompatActivity
             String userJsonStr = gson.toJson(user);
 //            实例化网络框架
             manager = OKManager.getInstance();
-//            调用网络框架的sendStringByPostMethod5方法，返回值是jsonArray
+//            调用网络框架的sendStringByPostMethod5方法，返回值是jsonArray  http://www.tech4flag.com  http://10.0.2.2:8080
             manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action",userJsonStr , new OKManager.Func5() {
                 @Override
                 public void onResponse(JSONArray jsonArray) {
@@ -220,13 +223,121 @@ public class MeunActivity extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_exit) {
+            new AlertDialog.Builder(this).setTitle("您确定退出吗？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //退出时
+                            //实例化网络框架OKhttp
+                            manager = OKManager.getInstance();
+                            List<Account> accountList = null;
+                            try {
+                                //获取操作标准符不为0的所有数据
+                                accountList = commomUtils.queryAllAccountAndIsDel(Long.parseLong(MyApplication.getUser().getString("userId")));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
+
+                            final Gson gson = new Gson();
+                            //通过服务器传过来的json字符串获取user对象
+                            User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
+                            for (Account account: accountList ) {
+                                account.setUser(user);//将user对象放到account对象里
+                            }
+                            //将刚刚添加user对象的accountList转换为json字符串
+                            String accountJsonStr = gson.toJson(accountList);
+
+//            System.out.println(accountJsonStr);
+                            //并且传输到服务器上
+                            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+                                @Override
+                                public void onResponse(JSONObject jsonObject) {
+                                    try {
+                                        if (jsonObject.getString("status").equals("success")){
+                                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
+                                        }else if (jsonObject.getString("status").equals("error")){
+                                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            commomUtils.deleteTable();//删除数据表
+                            finish();
+                        }
+                    }).setNegativeButton("取消",null).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    //退出时的时间
+    private long mExitTime;
+    //对返回键进行监听
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //退出时
+            //实例化网络框架OKhttp
+
+            manager = OKManager.getInstance();
+            List<Account> accountList = null;
+            try {
+                //获取操作标准符不为0的所有数据
+                accountList = commomUtils.queryAllAccountAndIsDel(Long.parseLong(MyApplication.getUser().getString("userId")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            final Gson gson = new Gson();
+            //通过服务器传过来的json字符串获取user对象
+            User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
+            for (Account account: accountList ) {
+                account.setUser(user);//将user对象放到account对象里
+            }
+            //将刚刚添加user对象的accountList转换为json字符串
+            String accountJsonStr = gson.toJson(accountList);
+
+//            System.out.println(accountJsonStr);
+            //并且传输到服务器上
+            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    try {
+                        if (jsonObject.getString("status").equals("success")){
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();//服务器响应后应该返回一个json对象数据
+                        }else if (jsonObject.getString("status").equals("error")){
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            commomUtils.deleteTable();//删除数据表
+            finish();
+        }
     }
 
 

@@ -89,6 +89,7 @@ public class AddAccountFragment extends Fragment {
         note=view.findViewById(R.id.acc_note);
 
         calendar=Calendar.getInstance();
+
         accountUtils = new CommomUtils(getActivity());
         addAccountBtn = view.findViewById(R.id.addAccount_btn);
 

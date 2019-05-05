@@ -39,7 +39,7 @@ public class AllAccountFragment extends Fragment {
 
 
     private ListView listView;
-    private String str[]={"123","456"};
+
     private List<Account> accountList;
     @Nullable
     @Override
@@ -76,7 +76,7 @@ public class AllAccountFragment extends Fragment {
                 bundle.putString("style",accountList.get(position).getAccStyle());
                 bundle.putString("note",accountList.get(position).getAccNote());
                 updateOrDeleteAccountFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).addToBackStack(null).commitAllowingStateLoss();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).commitAllowingStateLoss();
 
             }
         });

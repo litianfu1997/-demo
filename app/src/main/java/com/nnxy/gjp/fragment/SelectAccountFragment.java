@@ -95,7 +95,7 @@ public class SelectAccountFragment extends Fragment {
                     bundle.putString("typeStr",typeStr);
                     selectAccountByOptionFragment.setArguments(bundle);
 //                    Toast.makeText(getActivity(),"查询中",Toast.LENGTH_LONG).show();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountByOptionFragment).addToBackStack(null).commitAllowingStateLoss();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountByOptionFragment).commitAllowingStateLoss();
 
 
 
