@@ -103,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="258dp"
+            android:layout_marginStart="200dp"
             android:layout_toEndOf="@id/zhucezhanghap"
             android:onClick="Forget_Fun"
             android:text="忘记密码"
