@@ -60,13 +60,13 @@ public class ForgetActivity extends AppCompatActivity {
             final String str =gson.toJson(user);
 
 
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/user/checkUserPhone.action", str, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://www.tech4flag.com/user/checkUserPhone.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {
                         if (jsonObject.getString("status").equals("success")){
 
-                            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/updatePassword.action",str , new OKManager.Func4() {
+                            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/user/updatePassword.action",str , new OKManager.Func4() {
 
 
                             @Override

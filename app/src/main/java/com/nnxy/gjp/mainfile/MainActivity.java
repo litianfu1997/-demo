@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             user.setPassword(pwd);
             final Gson gson =new Gson();
             String str =gson.toJson(user);
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/login.action", str, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/user/login.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) { //将服务器表单提交到
 
@@ -91,22 +91,17 @@ public class MainActivity extends AppCompatActivity {
                         if(jsonObject.getString("status").equals("success")){
                             //将user放入MyApplication
                             MyApplication.setUser(jsonObject.getJSONObject("obj"));
-//                           获取userCode
-//                            System.out.println(MyApplication.getUser().getString("userCode"));
 
                             final Gson gson = new Gson();
                             //通过服务器传过来的json字符串获取user对象
                             User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
                             String userJsonStr = gson.toJson(user);
 
-                            manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action", userJsonStr, new OKManager.Func5() {
+
+                            manager.sendStringByPostMethod5("http://www.tech4flag.com/accountService/account/syncToClient.action", userJsonStr, new OKManager.Func5() {
                                 @Override
                                 public void onResponse(JSONArray jsonArray) {
-                                    try {
-                                        Thread.sleep(500);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
+                                    System.out.println();
                                     CommomUtils commomUtils = new CommomUtils(getApplicationContext());
                                     List<Account> accounts = new ArrayList<>();
                                     Account account = null;
@@ -129,11 +124,12 @@ public class MainActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    startActivity(new Intent(MainActivity.this,MeunActivity.class));//登录成功跳转页面
                                 }
                             });
 
 
-                            startActivity(new Intent(MainActivity.this,MeunActivity.class));//登录成功跳转页面
+
 
                             Toast.makeText(getApplicationContext(),jsonObject.getString("msg"),Toast.LENGTH_LONG).show();
                         }else if (jsonObject.getString("status").equals("error")){

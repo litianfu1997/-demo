@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/home"
             android:title="主页" />
         <item
             android:id="@+id/nav_add_account"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/charu"
             android:title="插入账务" />
         <item
             android:id="@+id/nav_select_account"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/chaxun"
             android:title="查询账务" />
         <item
             android:id="@+id/nav_account_tj"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/tongji"
             android:title="账务统计" />
 
     </group>
@@ -27,11 +27,11 @@
         <menu>
             <item
                 android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/icon_shezhi"
                 android:title="系统设置" />
             <item
                 android:id="@+id/nav_exit"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/tuichu"
                 android:title="退出" />
         </menu>
     </item>

@@ -29,6 +29,7 @@ import com.nnxy.gjp.fragment.AddAccountFragment;
 import com.nnxy.gjp.fragment.AllAccountFragment;
 import com.nnxy.gjp.fragment.SelectAccountFragment;
 import com.nnxy.gjp.fragment.StatFragment;
+import com.nnxy.gjp.fragment.SystemSettingFragment;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONArray;
@@ -135,7 +136,7 @@ public class MeunActivity extends AppCompatActivity
 
 //            System.out.println(accountJsonStr);
             //并且传输到服务器上
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {
@@ -162,7 +163,7 @@ public class MeunActivity extends AppCompatActivity
 //            实例化网络框架
             manager = OKManager.getInstance();
 //            调用网络框架的sendStringByPostMethod5方法，返回值是jsonArray  http://www.tech4flag.com  http://10.0.2.2:8080
-            manager.sendStringByPostMethod5("http://10.0.2.2:8080/accountService/account/syncToClient.action",userJsonStr , new OKManager.Func5() {
+            manager.sendStringByPostMethod5("http://www.tech4flag.com/accountService/account/syncToClient.action",userJsonStr , new OKManager.Func5() {
                 @Override
                 public void onResponse(JSONArray jsonArray) {
                     commomUtils.deleteTable();//进行删除表数据
@@ -221,7 +222,8 @@ public class MeunActivity extends AppCompatActivity
             StatFragment statFragment = new StatFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,statFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_setting) {
-
+            SystemSettingFragment systemSettingFragment = new SystemSettingFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,systemSettingFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_exit) {
             new AlertDialog.Builder(this).setTitle("您确定退出吗？")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -250,7 +252,7 @@ public class MeunActivity extends AppCompatActivity
 
 //            System.out.println(accountJsonStr);
                             //并且传输到服务器上
-                            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+                            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
                                 @Override
                                 public void onResponse(JSONObject jsonObject) {
                                     try {
@@ -321,7 +323,7 @@ public class MeunActivity extends AppCompatActivity
 
 //            System.out.println(accountJsonStr);
             //并且传输到服务器上
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/account/syncToServer.action", accountJsonStr, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {

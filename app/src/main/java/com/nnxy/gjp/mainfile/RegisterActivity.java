@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             Gson gson =new Gson();//实例化Gson对象
             String userJson = gson.toJson(user);//将user对象转换为Json字符串
             //将Json字符串发给服务器
-            manager.sendStringByPostMethod("http://10.0.2.2:8080/accountService/user/register.action", userJson, new OKManager.Func4() {
+            manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/user/register.action", userJson, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
                     try {

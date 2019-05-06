@@ -20,9 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="家庭记账系统"
+            android:text="管家婆家庭记账系统"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="48sp" />
+            android:textSize="40sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,25 +88,28 @@
             android:text="退出" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomLinear"
-        android:layout_gravity="bottom">
+        android:id="@+id/bottomLinear">
+
         <TextView
+            android:id="@+id/zhucezhanghap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="Intent_reg"
-            android:text="注册账号"/>
+            android:text="注册账号" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
+            android:layout_marginStart="258dp"
+            android:layout_toEndOf="@id/zhucezhanghap"
             android:onClick="Forget_Fun"
-            android:text="忘记密码" />
+            android:text="忘记密码"
+            android:textAlignment="textEnd" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
