@@ -48,6 +48,7 @@ public class MeunActivity extends AppCompatActivity
     private CommomUtils commomUtils;
     private List<Account> accounts ;
     private TextView nameTextView,phoneTextView;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,11 @@ public class MeunActivity extends AppCompatActivity
 
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("主页");
         setSupportActionBar(toolbar);
+
+
         //将CommomUtils初始化，这是操作本地数据库的对象
         commomUtils = new CommomUtils(getApplicationContext());
 
@@ -207,21 +211,26 @@ public class MeunActivity extends AppCompatActivity
 
         if (id == R.id.nav_add_account) {
 //            跳转到添加账务的界面
+            toolbar.setTitle("添加账务");
             addAccountFragment =new AddAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,addAccountFragment).addToBackStack(null).commitAllowingStateLoss();
 
         } else if (id == R.id.nav_select_account) {
 //            跳转到查询账务的界面
+            toolbar.setTitle("查询账务");
              selectAccountFragment =new SelectAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,selectAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_home) {
 //            跳转到主页面
+            toolbar.setTitle("主页");
             allAccountFragment = new AllAccountFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,allAccountFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_account_tj) {
+            toolbar.setTitle("账务统计");
             StatFragment statFragment = new StatFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,statFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_setting) {
+            toolbar.setTitle("系统设置");
             SystemSettingFragment systemSettingFragment = new SystemSettingFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,systemSettingFragment).addToBackStack(null).commitAllowingStateLoss();
         } else if (id == R.id.nav_exit) {
