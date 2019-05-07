@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void Login_Fun(View view){
 
-
+        CommomUtils commomUtils = new CommomUtils(getApplicationContext());
+        commomUtils.deleteTable();
 
         final String userCodeStr =  userCode.getText().toString();
         String pwd = password.getText().toString();

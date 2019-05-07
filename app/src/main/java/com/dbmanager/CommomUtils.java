@@ -118,7 +118,7 @@ public class CommomUtils {
     }
     public List<Account> queryAllAccount(Long id){
         return manager.getDaoSession().queryBuilder(Account.class).where(AccountDao.Properties.UserId.eq(id)
-        ,AccountDao.Properties.AccIsDel.eq(false)).list();
+        ,AccountDao.Properties.AccIsDel.eq(false)).orderAsc(AccountDao.Properties.AccCreateDate).list();
     }
 
     public List<Account> queryAllAccountByDate(Long id,String start,String end){
