@@ -99,29 +99,30 @@ public class AddAccountFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     account = new Account();
-                    try {
-                        account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-//                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
-                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
-                    account.setAccCreateDate(date.getText().toString());
-                    if (output_LeiBie.getSelectedItem().toString().equals("收入")){
-                        account.setAccType(true);
-                    }else {
-                        account.setAccType(false);
-                    }
-                    account.setOperateFlag(2l);//设置标识符
-                    account.setAccStyle(leiBie.getSelectedItem().toString());
-                    account.setAccNote(note.getText().toString());
-                    account.setAccIsDel(false);
-                    System.out.println(account.toString());
-                    if (money.getText().toString().trim().equals("||")){
+
+
+                    if (money.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(),"金额不能为空",Toast.LENGTH_LONG).show();
                     }else if (date.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(),"日期不能为空",Toast.LENGTH_LONG).show();
                     }else {
+                        try {
+                            account.setUserId(Long.parseLong(MyApplication.getUser().getString("userId")));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                    account.setAccMoney(Double.parseDouble(money.getText().toString()));
+                        account.setAccMoney(Double.parseDouble(money.getText().toString()));
+                        account.setAccCreateDate(date.getText().toString());
+                        if (output_LeiBie.getSelectedItem().toString().equals("收入")){
+                            account.setAccType(true);
+                        }else {
+                            account.setAccType(false);
+                        }
+                        account.setOperateFlag(2l);//设置标识符
+                        account.setAccStyle(leiBie.getSelectedItem().toString());
+                        account.setAccNote(note.getText().toString());
+                        account.setAccIsDel(false);
                         if (accountUtils.insertAccount(account)){//插入账务
 
                             Toast.makeText(getActivity(),"插入成功",Toast.LENGTH_LONG).show();
