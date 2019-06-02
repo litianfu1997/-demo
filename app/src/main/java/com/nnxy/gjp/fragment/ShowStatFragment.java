@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.nnxy.gjp.R;
 
+/**
+ * 账务统计
+ */
 public class ShowStatFragment extends Fragment {
     private Bundle bundle;
     @Nullable

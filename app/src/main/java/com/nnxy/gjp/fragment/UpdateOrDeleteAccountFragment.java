@@ -31,26 +31,27 @@ import org.json.JSONException;
 
 import java.util.Calendar;
 
+/**
+ * 该类解决账务更新与删除的问题
+ */
 public class UpdateOrDeleteAccountFragment extends Fragment {
+
+    //对所有控件、对象进行声明
     private Button updateAccountBtn,deleteAccountBtn;
     private Calendar calendar;
     private int mYear,mMonth,mDay;
     private OKManager manager;
     private Bundle bundle;
     private Spinner output_LeiBie = null;
-
     private Spinner leiBie = null;
     private String[][] leiieData = new String[][]{{"工资", "捡钱", "金融", "其他"},
             {"购物", "吃饭", "出行", "其他"}};
-
     private ArrayAdapter<CharSequence> adapterArea = null;
-
     private EditText money,date,note;
-
-
     private Account account;
-
     private CommomUtils accountUtils;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,38 +63,33 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //级联下拉框
         this.output_LeiBie =  view.findViewById(R.id.zhangwu_leibie);
         this.leiBie =  view.findViewById(R.id.leibie);
         this.output_LeiBie.setOnItemSelectedListener(new OnItemSelectedListenerImp());
-
+        //网络框架实例化
         manager = OKManager.getInstance();
-
         money=view.findViewById(R.id.acc_money);
         date=view.findViewById(R.id.acc_date);
         note=view.findViewById(R.id.acc_note);
-
-
         calendar=Calendar.getInstance();
         accountUtils = new CommomUtils(getActivity());
         updateAccountBtn = view.findViewById(R.id.updateAccount_btn);
         deleteAccountBtn = view.findViewById(R.id.deleteAccount_btn);
-
+        //bundle实例化
         bundle = getArguments();
         accountUtils = new CommomUtils(getActivity());
-
         money.setText(bundle.getString("money"));
         date.setText(bundle.getString("date"));
         note.setText(bundle.getString("note"));
-
-
-
+        //判断收支类型
         if (bundle.getString("type").equals("true")){
             output_LeiBie.setSelection(0);
         }else {
             output_LeiBie.setSelection(1);
         }
 
-
+        //更新账务按钮的点击事件
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +127,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                 }
             }
         });
-
+        //删除按钮的点击事件
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +199,8 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
 
 
             UpdateOrDeleteAccountFragment.this.leiBie.setAdapter(UpdateOrDeleteAccountFragment.this.adapterArea);
+
+            //解决级联下拉框的问题
             int p ;
             if (bundle.getString("style").equals("工资")||bundle.getString("style").equals("购物")){
                 p = 0;

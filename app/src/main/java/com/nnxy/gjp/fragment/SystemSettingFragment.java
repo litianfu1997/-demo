@@ -20,6 +20,9 @@ import com.nnxy.gjp.okhttp.OKManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 修改密码
+ */
 public class SystemSettingFragment extends Fragment {
 
     private EditText oldPassword,newPassword,rePassword;

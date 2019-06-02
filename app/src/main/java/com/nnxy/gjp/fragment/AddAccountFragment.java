@@ -36,26 +36,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 该类的功能是添加账务
+ */
 public class AddAccountFragment extends Fragment {
+
+    //对所有控件、对象声明
     private Button addAccountBtn;
     private Calendar calendar;
     private int mYear,mMonth,mDay;
     private OKManager manager;
-
     private Spinner output_LeiBie = null;
-
     private Spinner leiBie = null;
     private String[][] leiieData = new String[][]{{"工资", "捡钱", "金融", "其他"},
             {"购物", "吃饭", "出行", "其他"}};
     private ArrayAdapter<CharSequence> adapterArea = null;
-
     private List<Account> accountList;
-
     private EditText money,date,note;
-
     private Account account;
-
     private CommomUtils accountUtils;
+
     /**
      * 创建view，相当于Activity的setContentView（）；
      * @param inflater
@@ -87,12 +87,12 @@ public class AddAccountFragment extends Fragment {
         money=view.findViewById(R.id.acc_money);
         date=view.findViewById(R.id.acc_date);
         note=view.findViewById(R.id.acc_note);
-
+        //对日历对象进行实例化
         calendar=Calendar.getInstance();
-
+        //对操作数据库的对象进行实例化
         accountUtils = new CommomUtils(getActivity());
         addAccountBtn = view.findViewById(R.id.addAccount_btn);
-
+        //判空
         if (getActivity() != null&&accountUtils != null){
 
             addAccountBtn.setOnClickListener(new View.OnClickListener() {

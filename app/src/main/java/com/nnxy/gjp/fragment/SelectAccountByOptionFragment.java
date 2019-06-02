@@ -21,6 +21,9 @@ import org.json.JSONException;
 
 import java.util.List;
 
+/**
+ * 查询账务
+ */
 public class SelectAccountByOptionFragment extends Fragment {
     private CommomUtils accountUtils;
     private ListView listView;
@@ -45,9 +48,9 @@ public class SelectAccountByOptionFragment extends Fragment {
         listView = view.findViewById(R.id.select_part_account_listview);
         accountUtils = new CommomUtils(getActivity());
 
-
+        //对bundle进行赋值
         final Bundle bundle = getArguments();
-
+        //对bundle进行解封
         if(bundle != null){
             String startDate = bundle.getString("startDatestr");
             String endDate =bundle.getString("endDatestr");
@@ -56,8 +59,6 @@ public class SelectAccountByOptionFragment extends Fragment {
             String type =bundle.getString("typeStr");
             System.out.println(miniMoneyStr+" "+bigMoneyStr+" ");
             if(bigMoneyStr.trim().equals("")||miniMoneyStr.trim().equals("")){
-
-
                 miniMoney = 0d;
                 bigMoney = 0d;
 
@@ -83,6 +84,7 @@ public class SelectAccountByOptionFragment extends Fragment {
 //            System.out.println(accountList);
             AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.select_account_layout,accountList);
             listView.setAdapter(adapter);
+            //当点击任意一条账务都会进入更新或删除界面
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -32,6 +32,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 查询所有账务，默认以插入时间排序
+ */
 public class AllAccountFragment extends Fragment {
 
 
@@ -67,15 +70,20 @@ public class AllAccountFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //实例化UpdateOrDeleteAccountFragment对象
                 UpdateOrDeleteAccountFragment updateOrDeleteAccountFragment = new UpdateOrDeleteAccountFragment();
+                //实例化Bundle对象用于封装数据到UpdateOrDeleteAccountFragment对象中
                 Bundle bundle = new Bundle();
+                //封装数据
                 bundle.putString("accId",String.valueOf(accountList.get(position).getAccId()));
                 bundle.putString("money",accountList.get(position).getAccMoney().toString());
                 bundle.putString("date",accountList.get(position).getAccCreateDate());
                 bundle.putString("type", String.valueOf((accountList.get(position).getAccType() ? true:false)));
                 bundle.putString("style",accountList.get(position).getAccStyle());
                 bundle.putString("note",accountList.get(position).getAccNote());
+                //将bundle装进UpdateOrDeleteAccountFragment对象中
                 updateOrDeleteAccountFragment.setArguments(bundle);
+                //跳转界面，并且带着数据过去
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).commitAllowingStateLoss();
 
             }

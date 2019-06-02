@@ -58,8 +58,7 @@ public class ForgetActivity extends AppCompatActivity {
             Gson gson =new Gson();
             //将user对象转换为Json字符串
             final String str =gson.toJson(user);
-
-
+            //使用okhttp网络框架将json字符串发送到服务器
             manager.sendStringByPostMethod("http://www.tech4flag.com/user/checkUserPhone.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
