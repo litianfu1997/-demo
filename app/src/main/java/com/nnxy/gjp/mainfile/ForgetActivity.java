@@ -40,10 +40,6 @@ public class ForgetActivity extends AppCompatActivity {
         String newPassword = newPwd.getText().toString();
         String rePassword = rPwd.getText().toString();
         String userCode = user.getText().toString();
-
-
-
-
         if(phoneNum.trim().equals("")||newPassword.trim().equals("")||rePassword.trim().equals("")){
             Toast.makeText(getApplicationContext(),"输入框不能为空！",Toast.LENGTH_LONG).show();
         }else if (!(newPassword.equals(rePassword))){

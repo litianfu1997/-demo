@@ -3,6 +3,7 @@ package com.nnxy.gjp.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -156,6 +157,8 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
                                 account.setAccStyle(leiBie.getSelectedItem().toString());
                                 account.setAccIsDel(true);
                                 accountUtils.updateAccount(account);
+//                                跳转到主页面
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
                             }
                         }).setNegativeButton("取消",null).show();
 

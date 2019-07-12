@@ -126,6 +126,8 @@ public class AddAccountFragment extends Fragment {
                         if (accountUtils.insertAccount(account)){//插入账务
 
                             Toast.makeText(getActivity(),"插入成功",Toast.LENGTH_LONG).show();
+                            //跳转到主页面
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,new AllAccountFragment()).commitAllowingStateLoss();
                         }else {
                             Toast.makeText(getActivity(),"插入失败",Toast.LENGTH_LONG).show();
                         }

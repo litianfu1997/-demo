@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         String pwd = password.getText().toString();
 
 
-
         if(userCodeStr.trim().equals("")||pwd.trim().equals("")){
             Toast.makeText(getApplicationContext(),"用户名和密码不能为空",Toast.LENGTH_LONG).show();
         }else{
@@ -87,18 +86,14 @@ public class MainActivity extends AppCompatActivity {
             manager.sendStringByPostMethod("http://www.tech4flag.com/accountService/user/login.action", str, new OKManager.Func4() {
                 @Override
                 public void onResponse(JSONObject jsonObject) { //将服务器表单提交到
-
                     try {
                         if(jsonObject.getString("status").equals("success")){
                             //将user放入MyApplication
                             MyApplication.setUser(jsonObject.getJSONObject("obj"));
-
                             final Gson gson = new Gson();
                             //通过服务器传过来的json字符串获取user对象
                             User user =gson.fromJson(MyApplication.getUser().toString(), User.class);
                             String userJsonStr = gson.toJson(user);
-
-
                             manager.sendStringByPostMethod5("http://www.tech4flag.com/accountService/account/syncToClient.action", userJsonStr, new OKManager.Func5() {
                                 @Override
                                 public void onResponse(JSONArray jsonArray) {

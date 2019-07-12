@@ -40,14 +40,8 @@ public class SelectAccountByOptionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        bundle.putString("startDatestr",startDatestr);
-//        bundle.putString("endDatestr",endDatestr);
-//        bundle.putString("miniMoneyStr",miniMoneyStr);
-//        bundle.putString("bigMoneyStr",bigMoneyStr);
-//        bundle.putString("typeB",typeStr);
         listView = view.findViewById(R.id.select_part_account_listview);
         accountUtils = new CommomUtils(getActivity());
-
         //对bundle进行赋值
         final Bundle bundle = getArguments();
         //对bundle进行解封
@@ -61,12 +55,10 @@ public class SelectAccountByOptionFragment extends Fragment {
             if(bigMoneyStr.trim().equals("")||miniMoneyStr.trim().equals("")){
                 miniMoney = 0d;
                 bigMoney = 0d;
-
             }else {
                 bigMoney = Double.valueOf(bigMoneyStr);
                 miniMoney = Double.valueOf(miniMoneyStr);
             }
-
             if (type.equals("收入")){
                 typeB = true;
             }else {
