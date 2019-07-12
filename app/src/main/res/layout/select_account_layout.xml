@@ -26,8 +26,9 @@
             android:layout_width="0dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:singleLine="true"
             android:gravity="left"
-            android:text="123"
+            android:text="money"
             android:textSize="15sp" />
 
         <TextView
@@ -36,7 +37,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="123"
+            android:text="收支"
             android:textAlignment="gravity"
             android:textSize="15sp" />
 
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="123"
+            android:text="类型"
             android:textAlignment="gravity"
             android:textSize="15sp" />
 
@@ -57,7 +58,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:singleLine="true"
-            android:text="123"
+            android:text="备注信息"
             android:textSize="15sp" />
 
     </LinearLayout>

@@ -16,6 +16,15 @@ public class MyApplication extends Application {
 
     private static JSONObject user1;
     private static List<Account> accountList;
+    private static int APPFLAG;
+
+    public static int getAPPFLAG() {
+        return APPFLAG;
+    }
+
+    public static void setAPPFLAG(int APPFLAG) {
+        MyApplication.APPFLAG = APPFLAG;
+    }
 
     @Override
     public void onCreate() {

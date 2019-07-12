@@ -66,7 +66,7 @@ public class AddAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        MyApplication.setAPPFLAG(102);
         View view = inflater.inflate(R.layout.activity_add_account_,container,false );
 
         return view;

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nnxy.gjp.R;
+import com.nnxy.gjp.application.MyApplication;
 
 /**
  * 账务统计
@@ -19,6 +20,7 @@ public class ShowStatFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        MyApplication.setAPPFLAG(102);
         View view = inflater.inflate(R.layout.activity_show_stat,container,false);
         return view;
     }

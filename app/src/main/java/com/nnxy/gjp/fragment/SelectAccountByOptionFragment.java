@@ -33,6 +33,7 @@ public class SelectAccountByOptionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        MyApplication.setAPPFLAG(102);
         View view = inflater.inflate(R.layout.part_account_layout,container,false);
         return view;
     }

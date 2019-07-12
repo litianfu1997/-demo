@@ -1,6 +1,8 @@
 package com.nnxy.gjp.mainfile;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,8 +56,7 @@ public class MeunActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meun);
 
-
-
+        MyApplication.setAPPFLAG(101);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("主页");
         setSupportActionBar(toolbar);
@@ -287,7 +288,11 @@ public class MeunActivity extends AppCompatActivity
         return true;
     }
 
-
+    private String getRunningActivityName(){
+        ActivityManager activityManager=(ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        String runningActivity=activityManager.getRunningTasks(1).get(0).topActivity.getShortClassName();
+        return runningActivity;
+    }
 
     //退出时的时间
     private long mExitTime;
@@ -295,7 +300,7 @@ public class MeunActivity extends AppCompatActivity
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0&&MyApplication.getAPPFLAG() ==101 ) {
 
             exit();
             return true;
@@ -304,6 +309,7 @@ public class MeunActivity extends AppCompatActivity
     }
 
     public void exit() {
+
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             Toast.makeText(getApplicationContext(), "再按一次退出", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();

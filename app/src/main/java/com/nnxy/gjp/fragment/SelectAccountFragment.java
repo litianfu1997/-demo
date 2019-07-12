@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.dbmanager.CommomUtils;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.adapter.AccountAdapter;
+import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.entity.Account;
 import com.nnxy.gjp.okhttp.OKManager;
 
@@ -47,7 +48,7 @@ public class SelectAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        MyApplication.setAPPFLAG(102);
         View view = inflater.inflate(R.layout.activity_select_account_,container,false );
         return view;
     }

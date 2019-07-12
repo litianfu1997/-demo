@@ -84,7 +84,7 @@ public class AllAccountFragment extends Fragment {
                 //将bundle装进UpdateOrDeleteAccountFragment对象中
                 updateOrDeleteAccountFragment.setArguments(bundle);
                 //跳转界面，并且带着数据过去
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).commitAllowingStateLoss();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,updateOrDeleteAccountFragment).addToBackStack(null).commitAllowingStateLoss();
 
             }
         });
