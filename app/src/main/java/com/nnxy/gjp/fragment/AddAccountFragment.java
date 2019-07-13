@@ -72,6 +72,12 @@ public class AddAccountFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyApplication.setAPPFLAG(101);
+    }
+
     /**
      * 当view创将完成之后,要干的活
      * @param view
@@ -233,6 +239,7 @@ public class AddAccountFragment extends Fragment {
             // TODO Auto-generated method stub
         }
     }
+
 
 
 }

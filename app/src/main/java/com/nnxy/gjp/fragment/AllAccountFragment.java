@@ -50,7 +50,11 @@ public class AllAccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.all_account_layout,container,false );
         return view;
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyApplication.setAPPFLAG(101);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

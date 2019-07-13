@@ -36,7 +36,11 @@ public class SystemSettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.system_setting_layout,container,false);
         return view;
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyApplication.setAPPFLAG(101);
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

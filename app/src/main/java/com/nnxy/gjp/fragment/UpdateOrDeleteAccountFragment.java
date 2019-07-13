@@ -61,7 +61,11 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
 
         return view;
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyApplication.setAPPFLAG(101);
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
