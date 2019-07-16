@@ -86,7 +86,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
-            android:hint="2019-1-1"
+            android:hint="2019-01-01"
             android:inputType="text" />
     </LinearLayout>
     <LinearLayout
@@ -107,7 +107,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
-            android:hint="2019-1-1"
+            android:hint="2019-01-01"
             android:inputType="text" />
     </LinearLayout>
 

@@ -3,12 +3,10 @@ package com.nnxy.gjp.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +16,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dbmanager.CommomUtils;
 import com.nnxy.gjp.R;
 import com.nnxy.gjp.application.MyApplication;
 import com.nnxy.gjp.entity.Account;
-import com.nnxy.gjp.entity.User;
 import com.nnxy.gjp.okhttp.OKManager;
 
 import org.json.JSONException;
@@ -45,7 +41,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
     private Bundle bundle;
     private Spinner output_LeiBie = null;
     private Spinner leiBie = null;
-    private String[][] leiieData = new String[][]{{"工资", "捡钱", "金融", "其他"},
+    private String[][] leibieData = new String[][]{{"工资", "捡钱", "金融", "其他"},
             {"购物", "吃饭", "出行", "其他"}};
     private ArrayAdapter<CharSequence> adapterArea = null;
     private EditText money,date,note;
@@ -199,7 +195,7 @@ public class UpdateOrDeleteAccountFragment extends Fragment {
             // 得到选择的选项
             UpdateOrDeleteAccountFragment.this.adapterArea = new ArrayAdapter<CharSequence>(
                     getActivity(), android.R.layout.simple_spinner_item,
-                    UpdateOrDeleteAccountFragment.this.leiieData[position]);
+                    UpdateOrDeleteAccountFragment.this.leibieData[position]);
 
 
             UpdateOrDeleteAccountFragment.this.adapterArea
